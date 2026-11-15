@@ -15,7 +15,7 @@ A single-file, dependency-free 2D physics sandbox. Every motion is driven by rea
 物理实验室把常见的物理元件做成可以拖拽的“纸片教具”。你可以在米白色纸面上自由搭建斜面、弹簧、电路、场和量子实验，观察它们在真空、地球、月球、太空或水下的不同表现。
 
 - **单文件**：整个游戏就是一个 `物理实验室.html`，不需要安装、不需要联网。
-- **43 种元件**：力学 22、电学 10、场与量子 11。
+- **93 种元件**：力学 29、电学 15、磁学 13、光学 10、热学 10、原子 16。
 - **5 种环境**：真空、地球、月球、太空、水下。
 - **真实积分**：固定 120 Hz 物理步进，每步 2 个子步；碰撞、约束、电路和场力同时参与计算。
 - **简笔视觉**：所有元件都是手绘线稿风格，实时调试数值叠加在物体旁边。
@@ -30,15 +30,18 @@ A single-file, dependency-free 2D physics sandbox. Every motion is driven by rea
 | 太空 | 0 | 零重力，适合动量与推进实验 |
 | 水下 | 9.81 m/s² | 水线以下有阿基米德浮力与流体阻力，木球上浮、铁球下沉 |
 
-### 43 种物理元件
+### 93 种物理元件
 
 | 分类 | 数量 | 元件 |
 |---|---:|---|
-| 力学 | 22 | 小球、铁球、方块、三角块、六棱块、轻羽片、砝码、斜面、平台、风扇、推进器、磁铁、背景锚点、多米诺、气球、传送带、玻璃块、弹力球、冰块、弹簧、绳子、测力计 |
-| 电学 | 10 | 电池、铜线、灯泡、电阻、开关、电容、电流表、电荷球、电磁铁、LED 灯 |
-| 场与量子 | 11 | 电场区、磁场区、重力场区、风场区、引力井、量子粒子、量子纠缠对、势垒、双缝、量子比特、量子源 |
+| 力学 | 29 | 小球、铁球、方块、三角块、六棱块、轻羽片、砝码、斜面、平台、风扇、推进器、背景锚点、多米诺、气球、传送带、玻璃块、弹力球、冰块、弹簧、绳子、测力计、重力场区、风场区、引力井、小车、车轮、风车、定滑轮、杠杆 |
+| 电学 | 15 | 电池、铜线、灯泡、电阻、开关、电容、电流表、电荷球、LED 灯、电场区、电压表、保险丝、二极管、滑动变阻器、电动机 |
+| 磁学 | 13 | 磁铁、电磁铁、磁场区、指南针、高斯计、霍尔片、磁屏蔽罩、感应线圈、亥姆霍兹线圈、安培力导线、磁悬浮块、铁屑板、电流天平 |
+| 光学 | 10 | 激光器、平面镜、凸透镜、三棱镜、光屏、分光镜、凹面镜、偏振片、滤光片、光栅 |
+| 热学 | 10 | 加热器、制冷片、温度计、导热棒、绝热板、热电偶、散热片、相变块、热膨胀杆、量热器 |
+| 原子 | 16 | 原子核、电子、α 放射源、云室、光电板、量子粒子、量子纠缠对、势垒、双缝、量子比特、量子源、β 放射源、γ 放射源、盖革计数器、电子枪、质谱仪 |
 
-每种元件都可以在属性面板或右键菜单里调整尺寸、密度、摩擦、恢复系数、电荷、电压、电阻、电容、场强等参数。
+每种元件都可以在属性面板或右键菜单里调整尺寸、密度、摩擦、恢复系数、电荷、电压、电阻、电容、场强等参数。选中元件后，属性栏顶部会显示用途简介；杠杆可绕支点转动，定滑轮右键“开始穿绳”后连接绳两端，滑动变阻器可拖动“滑片 %”连续调阻。
 
 ### 操作方式
 
@@ -49,6 +52,7 @@ A single-file, dependency-free 2D physics sandbox. Every motion is driven by rea
 | 空白处拖拽 | 框选多个物体 |
 | `Shift` + 点击 | 增加/移除选择 |
 | 拖动物体 | 移动；松手时保留拖动惯性 |
+| 弹簧/绳子/测力计/铜线 | 拖动首尾直接连接，或依次点击首尾；右键或长按取消连线状态 |
 | `Alt` + 拖动 | 旋转物体 |
 | 鼠标右键 | 打开快捷参数菜单（物体、铜线、弹簧、绳子、测力计、纠缠对） |
 | 中键拖动 / `WASD` | 平移场景 |
@@ -73,6 +77,10 @@ A single-file, dependency-free 2D physics sandbox. Every motion is driven by rea
 - **场**：匀强电场 `qE`、磁场洛伦兹力 `qv×B`、自定义方向重力场、区域风场、反平方引力井。
 - **电路**：节点电压法 + 高斯消元；支持电池内阻、电阻、灯泡、开关、电容瞬态、电流表、LED 和电磁铁线圈。
 - **量子**：概率隧穿、双缝干涉、量子比特测量坍缩、反相关纠缠对。
+- **磁学**：磁铁/磁场区/电磁铁的叠加磁场；指南针、高斯计、霍尔片实时读数；磁屏蔽衰减；法拉第电磁感应。
+- **光学**：激光射线追踪，镜面反射、透镜偏折、棱镜色散、光屏成像与光电效应。
+- **热学**：热源辐射、接触热传导、绝热板阻挡、温度计读数与向室温回落。
+- **原子**：α 粒子发射、云室轨迹、原子核散射与光电板电子发射。
 - **比例**：`60 px = 1 m`；二维模型使用面密度，浮力、质量和弹簧力在同一套等效单位下计算。
 
 > 这是一个教学用二维模型，不是完整的波函数数值解，也不替代真实实验。量子部分为概念演示。
@@ -135,7 +143,7 @@ README.md         # 本介绍
 Physics Lab turns common physics props into draggable paper models. Build ramps, springs, circuits, fields, and quantum experiments on a warm off-white canvas, then watch them behave differently in vacuum, on Earth, on the Moon, in space, or underwater.
 
 - **Single file**: the whole game is one `物理实验室.html`; no install, no network required.
-- **43 components**: 22 mechanics, 10 electrics, 11 field & quantum.
+- **93 components**: 29 mechanics, 15 electrics, 13 magnetics, 10 optics, 10 thermal, 16 atomic.
 - **5 environments**: vacuum, Earth, Moon, space, underwater.
 - **Real integration**: fixed 120 Hz stepping with 2 substeps; collisions, constraints, circuits, and field forces all run together.
 - **Sketch visuals**: every component is hand-drawn line art, with live debug values next to objects.
@@ -150,13 +158,16 @@ Physics Lab turns common physics props into draggable paper models. Build ramps,
 | Space | 0 | Zero gravity; ideal for momentum and thruster experiments |
 | Underwater | 9.81 m/s² | Archimedes buoyancy and fluid drag below the waterline; wood floats, iron sinks |
 
-### 43 Components
+### 93 Components
 
 | Category | Count | Items |
 |---|---:|---|
-| Mechanics | 22 | ball, iron ball, box, triangle, hexagon, feather, weight, ramp, platform, fan, thruster, magnet, background anchor, domino, balloon, conveyor, glass block, rubber ball, ice block, spring, rope, force gauge |
-| Electrics | 10 | battery, copper wire, bulb, resistor, switch, capacitor, ammeter, charge ball, solenoid, LED |
-| Field & quantum | 11 | electric field, magnetic field, gravity field, wind field, gravity well, quantum particle, entangled pair, barrier, double slit, qubit, quantum source |
+| Mechanics | 29 | ball, iron ball, box, triangle, hexagon, feather, weight, ramp, platform, fan, thruster, background anchor, domino, balloon, conveyor, glass block, rubber ball, ice block, spring, rope, force gauge, gravity field, wind field, gravity well, cart, wheel, windmill, fixed pulley, lever |
+| Electrics | 15 | battery, copper wire, bulb, resistor, switch, capacitor, ammeter, charge ball, LED, electric field, voltmeter, fuse, diode, rheostat, motor |
+| Magnetics | 13 | magnet, solenoid, magnetic field, compass, gauss meter, Hall plate, magnetic shield, induction coil, Helmholtz coil, Ampere-force wire, maglev block, iron filings board, current balance |
+| Optics | 10 | laser, mirror, convex lens, prism, screen, beam splitter, concave mirror, polarizer, color filter, diffraction grating |
+| Thermal | 10 | heater, cooler, thermometer, conductor, insulator, thermocouple, radiator, phase-change block, thermal expansion bar, calorimeter |
+| Atomic | 16 | nucleus, electron, alpha source, cloud chamber, photoplate, quantum particle, entangled pair, barrier, double slit, qubit, quantum source, beta source, gamma source, Geiger counter, electron gun, mass spectrometer |
 
 Every component exposes its size, density, friction, restitution, charge, voltage, resistance, capacitance, field strength, and other parameters in the inspector or the right-click menu.
 

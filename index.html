@@ -93,9 +93,9 @@ svg{display:block}
 .panel-head{padding:14px 14px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex:none}
 .panel-head h2{margin:0;font-family:var(--serif);font-size:14px;letter-spacing:.08em;font-weight:700}
 .panel-head .count{font-size:9px;letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:3px 7px;font-variant-numeric:tabular-nums}
-.palette-filter{display:flex;gap:4px;padding:0 12px 10px;flex:none}
+.palette-filter{display:flex;flex-wrap:wrap;gap:4px;padding:0 12px 10px;flex:none}
 .filter-chip{
-  padding:5px 8px;border-radius:7px;font-size:10px;color:var(--muted);border:1px solid transparent;
+  padding:5px 5px;border-radius:7px;font-size:10px;color:var(--muted);border:1px solid transparent;
   transition:.16s;white-space:nowrap;
 }
 .filter-chip:hover{color:var(--ink);background:var(--panel-soft)}
@@ -121,9 +121,17 @@ svg{display:block}
   background:var(--panel-soft);border:1px solid rgba(199,185,160,.55);transition:.16s;
 }
 .palette-item:hover .icon-box{background:#f2e8d7}
-.palette-item[data-cat="mech"] .icon-box{color:#7e5537}
-.palette-item[data-cat="elec"] .icon-box{color:var(--blue);background:#e8efed}
-.palette-item[data-cat="quantum"] .icon-box{color:#5e577f;background:#eae5f0}
+.palette-item[data-cat="mech"] .icon-box{color:#7e5537;background:#f5ead8;border-color:#e2cba8}
+.palette-item[data-cat="elec"] .icon-box{color:#3d657d;background:#e7f0f6;border-color:#c2d8e4}
+.palette-item[data-cat="mag"] .icon-box{color:#6d568f;background:#efe9f7;border-color:#d7c9e8}
+.palette-item[data-cat="optics"] .icon-box{color:#2f7a72;background:#e3f2ee;border-color:#bcded6}
+.palette-item[data-cat="thermo"] .icon-box{color:#b24a37;background:#fbeae3;border-color:#eec8b9}
+.palette-item[data-cat="atomic"] .icon-box{color:#5d5b9a;background:#eae9f7;border-color:#cecce9}
+.palette-sep{grid-column:1/-1;display:flex;align-items:center;gap:7px;margin:10px 2px 2px;padding-top:8px;border-top:1px solid rgba(130,72,22,.26);font-size:10.5px;font-weight:700;letter-spacing:.08em;color:#8b6b4a}
+.palette-sep:first-child{margin-top:0;padding-top:0;border-top:0}
+.palette-sep .dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto;box-shadow:0 0 0 3px rgba(130,72,22,.06)}
+.palette-sep .line{flex:1;height:1px;background:linear-gradient(90deg,rgba(130,72,22,.22),rgba(130,72,22,.03))}
+.palette-sep .count{font-weight:500;letter-spacing:0;color:#a28972}
 .palette-item svg{width:32px;height:32px}
 .palette-item .lbl{font-size:12px;color:var(--ink-2);line-height:1.1;letter-spacing:.01em;white-space:nowrap;max-width:100%;overflow:hidden;text-overflow:ellipsis}
 .palette-item .hot{position:absolute;top:3px;right:4px;font-size:7px;color:var(--accent);opacity:.7}
@@ -206,6 +214,7 @@ svg{display:block}
 input[type="range"]{width:100%;height:16px;margin:0;accent-color:var(--accent);cursor:pointer;background:transparent}
 .tiny-note{font-size:8.5px;line-height:1.55;color:var(--muted);margin:8px 0 0}
 .inspect-head{display:flex;align-items:center;gap:10px;padding:3px 0 12px;border-bottom:1px solid var(--line);margin-bottom:11px}
+.component-desc{margin:0 0 11px;padding:8px 9px;border:1px solid rgba(130,72,22,.16);border-radius:8px;background:rgba(245,234,216,.42);font-size:10.5px;line-height:1.6;color:var(--ink-2)}
 .inspect-head .icon-box{width:40px;height:40px;border-radius:10px;background:var(--panel-soft);border:1px solid var(--line);display:grid;place-items:center;flex:none}
 .inspect-head .icon-box svg{width:28px;height:28px}
 .inspect-head h3{margin:0;font-family:var(--serif);font-size:15px;line-height:1.2;letter-spacing:.03em}
@@ -278,7 +287,7 @@ input[type="range"]{width:100%;height:16px;margin:0;accent-color:var(--accent);c
 
 /* ---------- 第四轮：摄像机 / 三角折叠 / 右键菜单 / 四列元件 ---------- */
 .stage-scroll{overflow:hidden !important;touch-action:none}
-#paletteToggle,#inspectorToggle{display:none !important}
+@media (min-width:941px){#paletteToggle,#inspectorToggle{display:none !important}}
 .stage-shell{cursor:default}
 .stage-shell.is-panning{cursor:grabbing}
 .panel-tab{
@@ -321,6 +330,7 @@ body.hide-toolbar .panel-tab.bottom{opacity:.9}
 .ctx-actions button:hover{background:#f1e3cd}
 .ctx-actions button.danger{color:#a8442a;border-color:#d9b6a5}
 .ctx-tip{font-size:9px;color:var(--muted);line-height:1.45;margin:7px 0 0}
+.ctx-desc{font-size:9.5px;line-height:1.55;color:var(--ink-2);margin:0 0 8px;padding:6px 7px;border-radius:6px;background:rgba(245,234,216,.5)}
 .ctx-menu select{width:100%;padding:3px;border:1px solid var(--line);border-radius:5px;background:#fffaf1;font-size:10px}
 
 @media (max-width:1280px){
@@ -364,38 +374,49 @@ body.hide-toolbar .panel-tab.bottom{opacity:.9}
   .drawer-toggle{display:grid}
   .scale-badge{display:none}
 }
-@media (max-width:720px){
-  .app{padding:8px;gap:8px}
-  .topbar{min-height:54px;padding:7px 8px;gap:7px;flex-wrap:nowrap;overflow:hidden}
-  .brand{min-width:0;flex:1}
-  .brand h1{font-size:15px}
-  .logo{width:34px;height:34px}
-  .logo span{font-size:19px}
-  .env-strip{order:5;position:absolute;left:8px;right:8px;top:60px;background:rgba(250,245,234,.97);box-shadow:0 8px 20px rgba(60,45,25,.1);z-index:30;display:none}
-  body.env-open .env-strip{display:flex}
-  .env-chip{padding:7px 9px;font-size:11px}
+@media (max-width:940px){
+  .app{padding:7px 7px 8px;gap:7px;height:100vh;height:100dvh}
+  .topbar{min-height:52px;padding:6px;gap:5px;flex-wrap:wrap;overflow:visible;border-radius:14px}
+  .brand{min-width:0;flex:1 1 auto;gap:7px}
+  .brand h1{font-size:14px;letter-spacing:.02em}
   .brand p{display:none}
-  .main{grid-template-columns:minmax(0,1fr)}
+  .logo{width:31px;height:31px}
+  .logo span{font-size:18px}
+  .top-actions{gap:3px;margin-left:0;flex:0 0 auto}
+  .top-actions .icon-btn{width:30px;height:30px;border-radius:8px}
+  .top-actions .icon-btn svg{width:15px;height:15px}
+  .top-actions .icon-btn.primary{width:30px;padding:0}
+  .top-actions .icon-btn.primary span{display:none}
+  .env-strip{order:5;flex:1 0 100%;width:100%;position:static;display:flex;max-height:32px;padding:3px;gap:3px;border-radius:10px;background:rgba(244,237,224,.76);box-shadow:none;overflow:auto;overscroll-behavior-x:contain}
+  .env-chip{padding:5px 7px;font-size:10px;gap:4px}
+  .env-chip em{display:none}
+  .main{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);min-width:0;min-height:0}
+  .stage-shell{min-width:0;min-height:0;width:100%;height:100%}
   .palette{
-    position:fixed;z-index:60;left:8px;top:76px;bottom:8px;width:286px;max-width:calc(100vw - 30px);
+    position:fixed;z-index:60;left:7px;top:102px;bottom:8px;width:286px;max-width:calc(100vw - 24px);
     transform:translateX(calc(-100% - 20px));transition:transform .22s ease;
   }
+  .inspector{top:102px;bottom:8px;right:7px;width:min(300px,calc(100vw - 24px))}
   body.palette-open .palette{transform:none;box-shadow:0 20px 50px rgba(60,45,25,.22)}
   .stage-toolbar{bottom:9px;gap:0;padding:4px}
   .tool-btn{min-width:31px;height:30px;padding:0 6px}
   .tool-btn .txt{display:none}
   .stage-status{left:8px;top:8px}
   .status-pill{padding:4px 6px;font-size:8px}
-  .stage-hint{top:44px;font-size:9px}
+  .stage-hint{top:44px;font-size:9px;max-width:calc(100% - 24px)}
   .formula-grid{grid-template-columns:1fr}
-  .modal{padding:17px}
+  .modal{padding:17px;max-height:calc(100dvh - 20px)}
+  .ctx-menu{width:min(238px,calc(100vw - 20px))}
+  .panel-tab.left,.panel-tab.right{display:none}
 }
 @media (max-width:430px){
-  .top-actions .icon-btn:not(.primary):not(.drawer-toggle){display:none}
+  .top-actions .icon-btn:not(.primary){display:grid}
+  .top-actions .world-btn{display:none !important}
   .top-actions .primary span{display:none}
-  .top-actions .primary{width:36px;padding:0}
+  .top-actions .primary{width:30px;padding:0}
   .stage-toolbar .tool-sep{display:none}
-  .tool-btn{min-width:28px}
+  .tool-btn{min-width:27px}
+  .brand h1{font-size:13px;letter-spacing:0}
 }
 /* ---------- 第三轮：面板折叠 / 可扩展场地 / 多选 ---------- */
 .top-actions .drawer-toggle{display:grid}
@@ -472,16 +493,19 @@ body.hide-toolbar .panel-tab.bottom{opacity:.9}
     <aside class="panel palette" id="palette">
       <div class="panel-head">
         <h2>元件库</h2>
-        <span class="count" id="componentCount">43 种</span>
+        <span class="count" id="componentCount">93 种</span>
       </div>
       <div class="palette-filter" id="paletteFilter">
         <button class="filter-chip active" data-filter="all">全部</button>
         <button class="filter-chip" data-filter="mech">力学</button>
         <button class="filter-chip" data-filter="elec">电学</button>
-        <button class="filter-chip" data-filter="quantum">场与量子</button>
+        <button class="filter-chip" data-filter="mag">磁学</button>
+        <button class="filter-chip" data-filter="optics">光学</button>
+        <button class="filter-chip" data-filter="thermo">热学</button>
+        <button class="filter-chip" data-filter="atomic">原子</button>
       </div>
       <div class="palette-list" id="paletteList"></div>
-      <div class="palette-tip"><b>拖入画布</b> 即可创建；连线类元件先点选，再在画布上依次点两个锚点。</div>
+      <div class="palette-tip"><b>拖入画布</b> 即可创建；连线类元件先点选，再拖动首尾或依次点击两个锚点；右键/长按可取消连线。</div>
     </aside>
 
     <section class="stage-shell tool-select" id="stageShell">
@@ -544,15 +568,22 @@ body.hide-toolbar .panel-tab.bottom{opacity:.9}
       <li>从左侧<b>元件库拖出</b>小球、方块、弹簧或电池；<b>单击</b>放置默认大小，<b>拖动</b>可直接画出物件尺寸。再按 <b>Space</b> 暂停观察。</li>
       <li><b>空白处拖动</b>框选多个物体，<b>Shift + 点击</b>增减选择；多选后可整体拖动、按 <b>Alt</b> 绕中心旋转，或批量固定/旋转/克隆/删除。</li>
       <li><b>WASD / 方向键</b>或<b>按住中键拖动</b>平移场景；<b>滚轮</b>、<b>= / -</b> 缩放。顶栏场地按钮切换 1× / 1.5× / 2× 世界。</li>
+      <li><b>手机 / 平板</b>：点左上角网格按钮打开元件库，点元件后点画布放置；<b>双指捏合</b>缩放、<b>双指拖动</b>平移；<b>长按物体 / 铜线</b>打开快捷菜单；底部工具栏可拖动、固定、旋转、删除。</li>
       <li><b>右键物体 / 铜线 / 弹簧 / 绳子</b>打开快捷菜单，可即时调密度、摩擦、恢复、角度、宽高、场强、电压、电阻、张力等，也可固定、克隆或删除。</li>
       <li><b>铜线可以单独点击选中</b>：点线身即可高亮，按 <kbd>Delete</kbd> 删除，或右键调电阻。</li>
       <li>拖拽松手会保留<b>惯性</b>；元件放置、碰撞、测量与按钮都有轻量音效，顶栏喇叭可静音。</li>
       <li>用底部的<b>固定</b>、<b>旋转</b>、<b>删除</b>按钮改造实验；按住 <b>Alt</b> 拖动或用 <b>[ / ]</b> 旋转物体。左右与底部的<b>小三角</b>可收起元件库、属性栏和工具栏。</li>
       <li>属性面板的“几何尺寸”可直接改圆的直径或多边形的宽高；场区也能改宽高与场强。</li>
-      <li>弹簧、绳子、测力计：先点选元件，再依次点击两个物体或空白处（<b>点空白处即固定在背景</b>）。导线：依次点击两个金色接线柱。</li>
+      <li>弹簧、绳子、测力计：先点选元件，再拖动首尾或依次点击两个物体/空白处（<b>点空白处即固定在背景</b>）。导线：同样可拖动首尾，或依次点击两个金色接线柱。连线状态下按右键或长按画布即可取消。</li>
       <li>电场/磁场/重力场/风场会给区域内的物体施力；传送带靠表面速度带动物体，电磁铁通电后吸引铁球。斜面是真正的三角形刚体，斜面默认固定、三角块可自由下落；地面与场地边界用黑线标出。</li>
       <li>量子源会定时发射量子粒子；粒子可穿过<b>双缝</b>产生干涉、以一定概率穿过<b>势垒</b>；双击<b>量子比特</b>可测量坍缩。</li>
       <li>双击开关切换通断；双击量子纠缠对进行“测量”；双击量子粒子观察波包。</li>
+      <li><b>杠杆</b>支点固定、杆可绕支点转动：在两端放砝码或让物体撞击即可研究力矩。选中任意元件时，右侧顶部会显示它的<b>用途简介</b>；鼠标悬停元件库条目也能看到。</li>
+      <li><b>定滑轮</b>：右键滑轮选“开始穿绳”，再依次点绳子两端，绳会绕过滑轮；右键或长按可取消穿绳。<b>滑动变阻器</b>右键拖动“滑片 %”或选中后在属性面板调滑片，电阻在 0.5–20 Ω 连续变化。</li>
+      <li><b>光学</b>：激光器发出光线，镜面反射、透镜偏折、棱镜分光，光屏记录光点，光电板被光照后发射电子。</li>
+      <li><b>热学</b>：加热器/制冷片改变周围温度，导热棒传递热量，绝热板阻挡，温度计实时读数。</li>
+      <li><b>磁学</b>：指南针、高斯计、霍尔片读取磁场；磁屏蔽罩衰减磁场；感应线圈随磁通变化产生电动势。</li>
+      <li><b>原子</b>：α 源发射粒子，云室记录轨迹，原子核散射，光电板演示光电效应。</li>
     </ul>
     <h3>环境与参数</h3>
     <ul>
@@ -571,6 +602,10 @@ body.hide-toolbar .panel-tab.bottom{opacity:.9}
       <div class="formula"><b>I = U/R · τ = RC</b><span>欧姆定律与 RC 暂态。电池、电阻、灯泡、电容与铜线构成可求解的直流电路。</span></div>
       <div class="formula"><b>P = UI = I²R</b><span>灯泡亮度由实际功率决定；电流表指针随电流偏转，导线上的光点表示电流方向。</span></div>
       <div class="formula"><b>T ∝ e<sup>−κa</sup></b><span>量子隧穿为示意模型：势垒越薄、粒子越快，穿过概率越大。</span></div>
+      <div class="formula"><b>F = qv × B</b><span>洛伦兹力。运动电荷在磁场中偏转，α 粒子轨迹会随之弯曲。</span></div>
+      <div class="formula"><b>ε = −N ΔΦ/Δt</b><span>法拉第电磁感应定律。磁铁靠近或远离线圈时，线圈产生感应电动势。</span></div>
+      <div class="formula"><b>Q = mcΔT</b><span>比热与热传导。热源、导热棒与绝热板共同决定温度变化。</span></div>
+      <div class="formula"><b>E = hν</b><span>光子能量。激光照射光电板后，光电子从板面逸出。</span></div>
     </div>
     <h3>快捷键</h3>
     <div class="key-grid">
@@ -717,7 +752,57 @@ const ICONS = {
   rubber: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="19" r="8"/><path d="M7 10c3-4 6-4 8 0M17 10c2-4 5-4 8 0" opacity=".55"/><path d="M16 7v7" stroke-dasharray="2 2"/></svg>',
   ice: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="7" width="16" height="18" rx="2"/><path d="M12 7v18M20 7v18M8 14h16M8 21h16" opacity=".35"/><path d="M12 11l4 4-4 4M20 11l-4 4 4 4" opacity=".55"/></svg>',
   led: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 16h5M20 16h5"/><path d="M12 10v12l9-6-9-6Z"/><path d="M22 10v12"/><path d="M11 7l-2-2M16 5V2M21 7l2-2" opacity=".5"/></svg>',
-  gravitywell: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="16" cy="16" r="3" fill="currentColor" fill-opacity=".2"/><circle cx="16" cy="16" r="8" opacity=".55"/><circle cx="16" cy="16" r="12" stroke-dasharray="2 2" opacity=".4"/><path d="M16 3v4l-2-2M16 3l2 2M29 16h-4l2-2M29 16l-2 2M16 29v-4l-2 2M16 29l2-2M3 16h4l-2-2M3 16l2 2" opacity=".75"/></svg>'
+  gravitywell: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="16" cy="16" r="3" fill="currentColor" fill-opacity=".2"/><circle cx="16" cy="16" r="8" opacity=".55"/><circle cx="16" cy="16" r="12" stroke-dasharray="2 2" opacity=".4"/><path d="M16 3v4l-2-2M16 3l2 2M29 16h-4l2-2M29 16l-2 2M16 29v-4l-2 2M16 29l2-2M3 16h4l-2-2M3 16l2 2" opacity=".75"/></svg>',
+  laser: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="12" width="10" height="8" rx="1.5"/><path d="M15 16h13" stroke-width="2" stroke-dasharray="4 2"/><path d="M6 12v8M10 12v8" opacity=".4"/><path d="M18 13l2 3-2 3" opacity=".6"/></svg>',
+  mirror: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 26 26 6"/><path d="M8 27 28 7" opacity=".35"/><path d="M10 23l-3 1M14 19l-3 1M18 15l-3 1M22 11l-3 1" opacity=".45"/><path d="M6 8l4 4" stroke-dasharray="2 2" opacity=".5"/></svg>',
+  lens: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 4c5 4 5 20 0 24-5-4-5-20 0-24Z"/><path d="M16 7v18" opacity=".25"/><path d="M4 16h4M24 16h4" stroke-dasharray="2 2" opacity=".5"/></svg>',
+  prism: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 25 16 6l10 19H6Z"/><path d="M5 16h6" stroke-width="1.7"/><path d="M19 17l6-3M19 19l7 0M19 21l6 3" opacity=".6"/></svg>',
+  screen: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="5" width="8" height="22" rx="1.5"/><circle cx="16" cy="13" r="1.6" fill="currentColor"/><path d="M3 16h8" stroke-dasharray="2 2"/><path d="M13 27v2M19 27v2M12 29h8" opacity=".5"/></svg>',
+  heater: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="17" width="20" height="10" rx="2"/><path d="M10 21h12M10 24h8" opacity=".4"/><path d="M11 14c-2-3 2-4 0-7M16 14c-2-3 2-4 0-7M21 14c-2-3 2-4 0-7" opacity=".7"/></svg>',
+  cooler: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="17" width="20" height="10" rx="2"/><path d="M16 3v10M11 5l5 5 5-5M11 11l5-5 5 5" opacity=".65"/><path d="M10 21h12M10 24h8" opacity=".35"/></svg>',
+  thermometer: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 5v15a4 4 0 1 0 6 0V5a3 3 0 0 0-6 0Z"/><path d="M16 10v12" stroke-width="2.2" opacity=".6"/><path d="M8 8h3M8 13h3M8 18h3" opacity=".45"/></svg>',
+  conductor: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="12" width="26" height="8" rx="2"/><path d="M7 16h3M14 16h4M22 16h3" opacity=".6"/><path d="M8 8l2 2-2 2M16 6l2 2-2 2M24 8l2 2-2 2" opacity=".45"/></svg>',
+  insulator: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="24" height="12" rx="2"/><path d="M8 14h2M13 18h2M18 14h2M23 18h2" stroke-width="2" opacity=".55"/><path d="M6 26h20" opacity=".3"/></svg>',
+  compass: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="12"/><circle cx="16" cy="16" r="1.4" fill="currentColor"/><path d="M16 16l-4-7 8 3-4 4Z"/><path d="M16 16l4 7-8-3 4-4Z" opacity=".5"/><path d="M16 2v3M16 27v3M2 16h3M27 16h3" opacity=".45"/></svg>',
+  gaussmeter: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="6" width="22" height="20" rx="2"/><path d="M9 21a7 7 0 0 1 14 0" opacity=".6"/><path d="M16 21l4-6"/><circle cx="16" cy="21" r="1.2" fill="currentColor"/><text x="16" y="11" text-anchor="middle" font-size="5" font-family="sans-serif" fill="currentColor" stroke="none">B</text></svg>',
+  hall: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="5" y="10" width="22" height="12" rx="1.5"/><path d="M5 16h4M23 16h4"/><path d="M16 8v4M16 20v4"/><path d="M12 6l4 3 4-3" opacity=".6"/><text x="16" y="18.5" text-anchor="middle" font-size="5" font-family="sans-serif" fill="currentColor" stroke="none">VH</text></svg>',
+  shield: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 26V13a10 10 0 0 1 20 0v13"/><path d="M11 26V14a5 5 0 0 1 10 0v12" opacity=".6"/><path d="M6 26h20M16 4v3M16 25v3" opacity=".4"/><path d="M3 9l3 2M29 9l-3 2" stroke-dasharray="2 2" opacity=".5"/></svg>',
+  induction: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M10 7c-5 2-5 16 0 18M13 6c-5 3-5 17 0 20M16 6c-5 3-5 17 0 20M19 6c-5 3-5 17 0 20M22 7c-5 2-5 16 0 18"/><path d="M6 16h3M23 16h3" opacity=".5"/><path d="M26 10l2 6-2 6" opacity=".6"/></svg>',
+  nucleus: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="16" cy="16" r="3.2" fill="currentColor" fill-opacity=".2"/><circle cx="11" cy="13" r="3"/><circle cx="21" cy="14" r="2.6"/><circle cx="15" cy="22" r="2.8"/><circle cx="22" cy="22" r="2.2" opacity=".7"/><circle cx="10" cy="21" r="1.8" opacity=".6"/></svg>',
+  electron: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="2.6" fill="currentColor"/><path d="M5 16c3-5 6-5 11 0s8 5 11 0" opacity=".65"/><path d="M6 23c3-3 6-3 10 0s8 3 10 0" opacity=".35"/><path d="M16 8v5M14 12l2 1 2-1" opacity=".5"/></svg>',
+  alphasource: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="10" height="12" rx="2"/><circle cx="9" cy="16" r="2" fill="currentColor" fill-opacity=".3"/><path d="M14 16h10" stroke-dasharray="3 2"/><path d="M24 16l3-3v6l-3-3Z" opacity=".7"/><path d="M16 9c-2 2-2 4 0 6M19 9c-2 2-2 4 0 6" opacity=".5"/></svg>',
+  cloud: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="26" height="22" rx="2"/><path d="M7 22c4-8 7 2 11-5s5 1 7-4" opacity=".7"/><path d="M7 12c4-4 7 4 11 0s5 2 7-2" opacity=".35"/><path d="M9 8l1 1M23 24l1 1M25 9l1 1" opacity=".5"/></svg>',
+  photoplate: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="20" y="4" width="6" height="24" rx="1.5"/><path d="M4 16h13" stroke-dasharray="3 2"/><path d="M10 13l3 3-3 3" opacity=".65"/><path d="M16 9l4-2M16 23l4 2M15 16l-4-4M15 16l-4 4" opacity=".5"/><circle cx="23" cy="16" r="1.5" fill="currentColor"/></svg>',
+  cart: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19h18l4-7H9L5 19Z"/><circle cx="10" cy="24" r="3"/><circle cx="23" cy="24" r="3"/><path d="M13 15h7"/></svg>',
+  wheel: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="10"/><circle cx="16" cy="16" r="3"/><path d="M16 6v7M26 16h-7M16 26v-7M6 16h7M9 9l5 5M23 9l-5 5M9 23l5-5M23 23l-5-5" opacity=".6"/></svg>',
+  windmill: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M16 23V8"/><path d="M16 8l9-3-4 8-5-5ZM16 8l-9-3 4 8 5-5ZM16 8l-4 10 8-4-4-6Z" opacity=".75"/><path d="M12 28h8M14 23h4" opacity=".6"/></svg>',
+  pulley: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="10" r="6"/><circle cx="16" cy="10" r="1.5"/><path d="M5 5h22M10 16c0 5 2 8 2 11M22 16c0 5-2 8-2 11"/></svg>',
+  lever: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11h26"/><path d="M16 11l-4 9h8l-4-9Z"/><path d="M9 28h14" opacity=".5"/><circle cx="8" cy="9" r="2" opacity=".6"/></svg>',
+  voltmeter: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="6" width="22" height="20" rx="2"/><path d="M9 21a7 7 0 0 1 14 0"/><path d="M16 21l4-6"/><text x="16" y="12" text-anchor="middle" font-size="6" font-family="sans-serif" fill="currentColor" stroke="none">V</text></svg>',
+  fuse: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="12" width="22" height="8" rx="3"/><path d="M10 16h12" stroke-width="2" opacity=".7"/><path d="M5 10v12M27 10v12" opacity=".4"/></svg>',
+  diode: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 16h8M21 16h8"/><path d="M11 9v14l10-7-10-7Z"/><path d="M21 9v14"/></svg>',
+  rheostat: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 16h6l3-5h8l3 5h6"/><path d="M10 16l8-8 4 4-10 7" opacity=".75"/><path d="M14 8v4M18 8v4" opacity=".5"/></svg>',
+  motor: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="16" cy="16" r="10"/><path d="M16 6v5M26 16h-5M16 26v-5M6 16h5"/><text x="16" y="19" text-anchor="middle" font-size="7" font-family="sans-serif" fill="currentColor" stroke="none">M</text></svg>',
+  helmholtz: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><ellipse cx="16" cy="9" rx="10" ry="3.5"/><ellipse cx="16" cy="23" rx="10" ry="3.5"/><path d="M6 9v14M26 9v14" opacity=".35"/><path d="M16 14v4M14 15l2-1 2 1" opacity=".6"/></svg>',
+  amperewire: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 19h26"/><path d="M8 19V9M24 19V9" opacity=".55"/><path d="M16 8v7M13 11l3-3 3 3" opacity=".7"/><path d="M7 22h18" opacity=".3"/></svg>',
+  maglev: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="6" width="20" height="7" rx="2"/><path d="M6 25h20" stroke-width="2"/><path d="M11 16v5M16 14v7M21 16v5" opacity=".55"/><path d="M10 24l-2 3M22 24l2 3" opacity=".5"/></svg>',
+  ironfilings: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="4" y="5" width="24" height="22" rx="2"/><path d="M9 20c2-6 5-7 7-7s5 1 7 7M9 24c3-3 5-3 7-3s4 0 7 3" opacity=".55"/><path d="M11 10l2 2M20 9l2 2M16 14l1 1" opacity=".8"/></svg>',
+  currentbalance: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h20M16 8v11"/><path d="M8 19h16l-3 8H11l-3-8Z"/><path d="M12 23h8" opacity=".5"/><circle cx="16" cy="8" r="2"/></svg>',
+  beamsplitter: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 26 26 6"/><path d="M3 16h12M15 16h14M16 16v12" opacity=".65"/><path d="M23 9l3 3-3 3" opacity=".5"/></svg>',
+  concave: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 5c-7 7-7 15 0 22"/><path d="M4 16h13" stroke-dasharray="3 2"/><path d="M17 12l4 4-4 4" opacity=".65"/><path d="M20 16h7" opacity=".4"/></svg>',
+  polarizer: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="5" width="8" height="22" rx="2"/><path d="M15 8l-2 16M19 8l2 16" opacity=".5"/><path d="M3 16h9M20 16h9" stroke-dasharray="2 2" opacity=".55"/></svg>',
+  filter: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="12" y="5" width="8" height="22" rx="2"/><path d="M3 16h9M20 16h9" stroke-dasharray="2 2" opacity=".55"/><path d="M15 9h2M14 13h4M14 20h4M15 24h2" opacity=".45"/></svg>',
+  grating: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="13" y="4" width="6" height="24" rx="1"/><path d="M14 6v20M16 6v20M18 6v20" opacity=".35"/><path d="M13 13H6M13 16H5M13 19H6M19 11l8-4M19 16h9M19 21l8 4" opacity=".7"/></svg>',
+  thermocouple: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 8h9v10H6M25 24h-9V14h9" /><path d="M15 18h10" stroke-dasharray="2 2" opacity=".5"/><path d="M9 6v4M22 22v4" opacity=".45"/><text x="16" y="12" text-anchor="middle" font-size="5" font-family="sans-serif" fill="currentColor" stroke="none">ΔT</text></svg>',
+  radiator: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="11" width="24" height="10" rx="2"/><path d="M8 11v10M12 11v10M16 11v10M20 11v10M24 11v10" opacity=".4"/><path d="M7 8l2-3M16 8l2-3M25 8l2-3" opacity=".55"/></svg>',
+  phasechange: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="7" y="7" width="18" height="18" rx="2"/><path d="M7 19c3-2 6 2 9 0s6 2 9 0" opacity=".65"/><path d="M10 24h12" opacity=".4"/><path d="M16 4v5M13 6l3-2 3 2" opacity=".5"/></svg>',
+  expansion: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="14" width="26" height="4" rx="1"/><path d="M27 9l3 3-3 3M5 9L2 12l3 3" opacity=".7"/><path d="M8 21v4M16 21v6M24 21v4" opacity=".35"/></svg>',
+  calorimeter: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 8h16v14a8 8 0 0 1-16 0V8Z"/><path d="M8 12h16" opacity=".5"/><path d="M13 8V5M19 8V5" opacity=".55"/><path d="M12 20c2-2 4 2 6 0s4 2 6 0" opacity=".55"/></svg>',
+  betasource: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="10" height="12" rx="2"/><path d="M9 16h.1" stroke-width="3"/><path d="M14 16h10" stroke-dasharray="3 2"/><path d="M24 16l3-3v6l-3-3Z" opacity=".7"/><path d="M18 11l2 2M21 20l2 2" opacity=".5"/></svg>',
+  gammasource: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="10" width="10" height="12" rx="2"/><path d="M9 16h.1" stroke-width="3"/><path d="M14 16h10" stroke-dasharray="1 3" stroke-width="2"/><path d="M25 9l2 3-2 3M25 17l2 3-2 3" opacity=".65"/></svg>',
+  geiger: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="5" width="16" height="22" rx="3"/><path d="M13 9h6" opacity=".5"/><circle cx="16" cy="17" r="4"/><path d="M16 17l4-7" opacity=".6"/><path d="M11 25h10" opacity=".4"/></svg>',
+  electrongun: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 11h13v10H4V11Z"/><path d="M17 16h10" stroke-dasharray="2 2"/><path d="M27 16l3-3v6l-3-3Z" opacity=".7"/><path d="M8 14v4M11 13v6" opacity=".45"/></svg>',
+  massspec: '<svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="4" y="5" width="24" height="22" rx="2"/><path d="M7 22c5-2 8-8 12-8s6 3 7 8" opacity=".75"/><path d="M7 16h8" stroke-dasharray="2 2" opacity=".5"/><circle cx="19" cy="14" r="1.2" fill="currentColor"/><path d="M19 8v3" opacity=".5"/></svg>'
 };
 
 /* =========================================================
@@ -821,6 +906,17 @@ class Body {
     this.balloon = !!o.balloon;
     this.anchor = !!o.anchor;
     this.isGround = !!o.isGround;
+    this.optic = o.optic || null;
+    this.thermal = o.thermal || null;
+    this.magtool = o.magtool || null;
+    this.shield = o.shield || null;
+    this.induction = o.induction || null;
+    this.atomic = o.atomic || null;
+    this.mech = o.mech || null;
+    this.magdevice = o.magdevice || null;
+    this.pivot = !!o.pivot;
+    this.rheostatPos = o.rheostatPos == null ? .5 : o.rheostatPos;
+    this.temperature = o.temperature == null ? 293 : o.temperature;
     this.ammeter = o.ammeter || null;
     this.circuitState = o.circuitState || null;
     this.tunnelWidth = o.tunnelWidth || 0;
@@ -870,7 +966,7 @@ class Body {
       return;
     }
     this.mass = Math.max(0.002, this.areaM2 * this.density);
-    this.invMass = 1 / this.mass;
+    this.invMass = this.pivot ? 0 : 1 / this.mass;
     if (this.shape === 'circle') {
       this.inertia = 0.5 * this.mass * this.r * this.r;
     } else {
@@ -956,6 +1052,8 @@ const constraints = [];
 const wires = [];
 const pairs = [];
 const effects = [];
+const atomicParticles = [];
+let opticalPaths = [];
 let uid = 1;
 let W = 900, H = 620, DPR = 1;
 let paused = false;
@@ -963,7 +1061,7 @@ let simTime = 0;
 let simSpeed = 1;
 let windSpeed = 0;
 let showVectors = false;
-let showDebug = true;
+let showDebug = !window.matchMedia('(max-width: 940px)').matches;
 let sceneBuiltW = 0, sceneBuiltH = 0, userTouchedScene = false;
 let selection = null;
 let multiBodies = [];
@@ -973,6 +1071,11 @@ let camera = { x: 0, y: 0, zoom: 1 };
 let viewW = 900, viewH = 620;
 let panState = null;
 let placeDrag = null;
+let touchPoints = new Map();
+let pinchState = null;
+let longPress = null;
+let paletteDraggedAt = 0;
+let mobileFitTick = 0;
 let soundEnabled = true;
 let audioCtx = null;
 const heldKeys = new Set();
@@ -1022,6 +1125,8 @@ let hoverWire = null;
 let hoverPin = null;
 let wireMode = false;
 let wireStart = null;
+let linkDrag = null;
+let pendingPulley = null;
 let connector = null;
 let pendingType = null;
 let dragState = null;
@@ -1357,6 +1462,27 @@ function applyBodyForces(dt) {
       applyForceCenter(b, 0, b.mass * g * b.gravityScale);
     }
 
+    // 小车自驱：力必须在本步 integrate 之前施加
+    if (b.mech && b.mech.kind === 'cart' && b.mech.on !== false) {
+      const axis = { x: Math.cos(b.angle), y: Math.sin(b.angle) };
+      const drive = 340 * (b.mech.power == null ? 1 : b.mech.power);
+      applyForceCenter(b, axis.x * drive, axis.y * drive);
+    }
+
+    // 安培力 / 磁悬浮：力同样在 integrate 之前施加
+    if (b.magdevice) {
+      const B = magneticVectorAt(b.pos.x, b.pos.y);
+      if (b.magdevice.kind === 'ampere') {
+        const I = Math.abs((b.electrical && b.electrical.current) || (b.circuitState && b.circuitState.current) || 0);
+        const F = B.mag * I * 1.2;
+        const sgn = Math.sign((b.electrical && b.electrical.current) || (b.circuitState && b.circuitState.current) || 1);
+        applyForceCenter(b, -Math.sin(b.angle) * F * sgn, Math.cos(b.angle) * F * sgn);
+      } else if (b.magdevice.kind === 'maglev') {
+        const lift = Math.min(180, B.mag * 400);
+        applyForceCenter(b, 0, -lift);
+      }
+    }
+
     // 流体：空气 / 水
     let submerged = 0;
     if (E.water) {
@@ -1495,6 +1621,261 @@ function applyBodyForces(dt) {
   }
 }
 
+/* ---------- 磁学 / 热学 / 原子物理 步进 ---------- */
+function pointInLocal(b, x, y) {
+  const p = rotInv(x - b.pos.x, y - b.pos.y, b.angle);
+  return Math.abs(p.x) <= b.halfW && Math.abs(p.y) <= b.halfH;
+}
+function magneticVectorAt(x, y, ignoreShield = false) {
+  let bx = 0, by = 0;
+  for (const f of bodies) {
+    if (f.field && (f.field.kind || 'electric') === 'magnetic') {
+      if (!f.static) continue;
+      if (!pointInLocal(f, x, y)) continue;
+      const a = f.angle + (f.field.angle || 0);
+      bx += Math.cos(a) * f.field.strength;
+      by += Math.sin(a) * f.field.strength;
+    }
+    if (f.magnet) {
+      const dx = f.pos.x - x, dy = f.pos.y - y;
+      const d = Math.max(18, hypot(dx, dy));
+      const s = f.magnet.strength * 800 / (d * d);
+      bx += dx / d * s; by += dy / d * s;
+    }
+    if (f.coil && f.electrical) {
+      const I = Math.abs(f.electrical.current || 0);
+      const dx = x - f.pos.x, dy = y - f.pos.y;
+      const d = Math.max(16, hypot(dx, dy));
+      if (I > .002 && d < f.coil.radius) {
+        const s = I * 18 / Math.max(.3, d / PPM);
+        bx += Math.cos(f.angle) * s;
+        by += Math.sin(f.angle) * s;
+      }
+    }
+    if (f.magdevice && f.magdevice.kind === 'helmholtz' && pointInLocal(f, x, y)) {
+      const a = f.angle + Math.PI / 2;
+      bx += Math.cos(a) * (f.magdevice.B || .8);
+      by += Math.sin(a) * (f.magdevice.B || .8);
+    }
+  }
+  if (!ignoreShield) {
+    for (const s of bodies) {
+      if (!s.shield || !pointInLocal(s, x, y)) continue;
+      const k = s.shield.attenuation == null ? .1 : s.shield.attenuation;
+      bx *= k; by *= k;
+    }
+  }
+  return { x: bx, y: by, mag: hypot(bx, by) };
+}
+function magneticStep(dt) {
+  for (const b of bodies) {
+    if (b.mech) {
+      if (b.mech.kind === 'windmill') {
+        b.mech.blade = (b.mech.blade || 0) + (0.9 + Math.max(0, windSpeed) * 0.18) * dt;
+      } else if (b.mech.kind === 'cart' && !b.static && b.mech.on !== false) {
+        const axis = { x: Math.cos(b.angle), y: Math.sin(b.angle) };
+        b.mech.speed = b.vel.x * axis.x + b.vel.y * axis.y;
+      }
+    }
+    if (b.induction) {
+      const B = magneticVectorAt(b.pos.x, b.pos.y, true);
+      const axis = { x: Math.cos(b.angle), y: Math.sin(b.angle) };
+      const fluxB = B.x * axis.x + B.y * axis.y;
+      const emf = -(fluxB - (b.induction.prevB || 0)) * b.induction.turns * b.induction.area / Math.max(1e-4, dt);
+      b.induction.prevB = fluxB;
+      b.induction.B = fluxB;
+      b.induction.emf = clamp(emf, -24, 24);
+      b.electrical.voltage = b.induction.emf;
+    }
+    if (b.magtool) {
+      const B = magneticVectorAt(b.pos.x, b.pos.y);
+      b.magtool.B = B.mag;
+      if (b.magtool.kind === 'compass') {
+        if (B.mag > .01) {
+          const target = Math.atan2(B.y, B.x);
+          let d = target - b.magtool.needle;
+          while (d > Math.PI) d -= TAU;
+          while (d < -Math.PI) d += TAU;
+          b.magtool.needle += d * Math.min(1, dt * 6);
+        }
+      } else if (b.magtool.kind === 'hall') {
+        b.magtool.V = B.mag * b.magtool.current * 0.9;
+      }
+    }
+    if (b.magdevice) {
+      const B = magneticVectorAt(b.pos.x, b.pos.y);
+      if (b.magdevice.kind === 'ampere') {
+        const I = Math.abs((b.electrical && b.electrical.current) || (b.circuitState && b.circuitState.current) || 0);
+        b.magdevice.F = B.mag * I * 1.2;
+      } else if (b.magdevice.kind === 'maglev') {
+        b.magdevice.lift = Math.min(180, B.mag * 400);
+      } else if (b.magdevice.kind === 'balance') {
+        const I = Math.abs((b.electrical && b.electrical.current) || (b.circuitState && b.circuitState.current) || 0.02);
+        b.magdevice.F = B.mag * I * .6;
+      }
+    }
+    if (b.electrical && b.electrical.kind === 'motor') {
+      const I = Math.abs((b.electrical && b.electrical.current) || (b.circuitState && b.circuitState.current) || 0);
+      b.electrical.speed = I * 68;
+      b.electrical.power = I * I * (b.electrical.R || 3);
+    }
+  }
+}
+function thermalStep(dt) {
+  for (const b of bodies) {
+    if (b.temperature == null) b.temperature = 293;
+  }
+  for (const src of bodies) {
+    if (!src.thermal) continue;
+    const kind = src.thermal.kind;
+    if (kind === 'heater' || kind === 'cooler') {
+      src.temperature = src.thermal.temp;
+      for (const b of bodies) {
+        if (b === src) continue;
+        const d = dist(src.pos, b.pos);
+        if (d > 240) continue;
+        const reach = clamp(1 - d / 240, 0, 1);
+        b.temperature += (src.thermal.temp - b.temperature) * reach * dt * .55;
+      }
+    }
+    if (kind === 'radiator') {
+      for (const b of bodies) {
+        if (b === src) continue;
+        const d = dist(src.pos, b.pos);
+        if (d > 170) continue;
+        const reach = clamp(1 - d / 170, 0, 1);
+        b.temperature += (293 - b.temperature) * reach * dt * .8;
+      }
+    }
+  }
+  for (const b of bodies) {
+    if (b.thermal && b.thermal.kind === 'conductor') {
+      for (const o of bodies) {
+        if (o === b) continue;
+        if (dist(b.pos, o.pos) > b.halfW + o.halfW + 14) continue;
+        const avg = (b.temperature + o.temperature) / 2;
+        b.temperature += (avg - b.temperature) * dt * b.thermal.k * .6;
+        o.temperature += (avg - o.temperature) * dt * .18;
+      }
+    }
+    if (b.thermal && b.thermal.kind === 'thermo') {
+      b.thermal.reading = b.temperature;
+    }
+    if (b.thermal && b.thermal.kind === 'phaseChange' && b.temperature >= 273 && b.thermal.melt < 1) {
+      b.temperature = 273;
+      b.thermal.melt = Math.min(1, b.thermal.melt + dt * .055);
+    }
+    if (b.thermal && b.thermal.kind === 'expansion') {
+      b.thermal.scale = 1 + clamp((b.temperature - 293) * .0018, -.2, .35);
+    }
+    if (b.thermal && b.thermal.kind === 'calorimeter') {
+      let q = 0;
+      for (const o of bodies) {
+        if (o === b) continue;
+        if (dist(b.pos, o.pos) > b.r + o.halfW + 20) continue;
+        q += (o.temperature - b.temperature) * Math.min(4, o.mass || 1) * dt * 2.2;
+      }
+      b.thermal.Q = (b.thermal.Q || 0) + Math.abs(q);
+      b.temperature += q / 240;
+    }
+    if (b.thermal && b.thermal.kind === 'thermocouple' && b.electrical) {
+      b.electrical.voltage = clamp((b.temperature - 293) * .02, -6, 6);
+    }
+    b.temperature += (293 - b.temperature) * dt * .012;
+    b.temperature = clamp(b.temperature, 120, 650);
+  }
+}
+function spawnAtomicParticle(type, x, y, vx, vy) {
+  const life = type === 'alpha' ? 4.5 : type === 'gamma' ? 4.2 : type === 'electron' ? 3.2 : 2.6;
+  atomicParticles.push({ type, x, y, vx, vy, age: 0, life, trail: [{ x, y }], countedBy: {} });
+  if (atomicParticles.length > 90) atomicParticles.shift();
+}
+function atomicStep(dt) {
+  const sourceMap = { alphaSource: 'alpha', betaSource: 'beta', gammaSource: 'gamma', electronGun: 'electron' };
+  for (const src of bodies) {
+    if (!src.atomic || !sourceMap[src.atomic.kind]) continue;
+    src.atomic.timer += dt;
+    if (src.atomic.timer < src.atomic.interval) continue;
+    src.atomic.timer -= src.atomic.interval;
+    const a = src.angle;
+    const type = sourceMap[src.atomic.kind];
+    const sp = src.atomic.speed || 210;
+    spawnAtomicParticle(type, src.pos.x + Math.cos(a) * 30, src.pos.y + Math.sin(a) * 30,
+      Math.cos(a) * sp, Math.sin(a) * sp);
+  }
+  for (const p of atomicParticles) {
+    p.age += dt;
+    const B = magneticVectorAt(p.x, p.y);
+    if (p.type === 'alpha') {
+      // α 粒子带 +2e，受 qv×B 偏转
+      p.vx += p.vy * B.mag * dt * .00011;
+      p.vy -= p.vx * B.mag * dt * .00011;
+    } else if (p.type === 'beta' || p.type === 'electron') {
+      p.vx -= p.vy * B.mag * dt * .00016;
+      p.vy += p.vx * B.mag * dt * .00016;
+    }
+    for (const b of bodies) {
+      if (!b.atomic) continue;
+      if (b.atomic.kind === 'nucleus') {
+        const dx = p.x - b.pos.x, dy = p.y - b.pos.y;
+        const d = Math.max(12, hypot(dx, dy));
+        if (d < 70) {
+          const f = (p.type === 'alpha' ? 260 : 60) / (d * d) * dt;
+          p.vx += dx / d * f;
+          p.vy += dy / d * f;
+        }
+      }
+      if (b.atomic.kind === 'cloud' && pointInLocal(b, p.x, p.y)) {
+        b.atomic.tracks.push({ x: p.x, y: p.y, type: p.type, age: 0 });
+        if (b.atomic.tracks.length > 220) b.atomic.tracks.shift();
+      }
+      if (b.atomic.kind === 'geiger' && !p.countedBy[b.id] && dist(p, b.pos) < 110) {
+        p.countedBy[b.id] = true;
+        b.atomic.count = (b.atomic.count || 0) + 1;
+        b.atomic.rate = (b.atomic.rate || 0) * .92 + 1.2;
+      }
+      if (b.atomic.kind === 'massSpec' && pointInLocal(b, p.x, p.y)) {
+        const bend = .00055 * (b.atomic.B || .9);
+        p.vx -= p.vy * bend * dt * 60;
+        p.vy += p.vx * bend * dt * 60;
+        b.atomic.radius = hypot(p.vx, p.vy) / Math.max(.1, (b.atomic.B || .9) * 2);
+      }
+      if (b.atomic.kind === 'photo' && p.type !== 'electron' && dist(p, b.pos) < 22) {
+        p.life = 0;
+        b.atomic.hits++;
+        b.atomic.glow = 1;
+      }
+    }
+    p.x += p.vx * dt; p.y += p.vy * dt;
+    if (p.age > p.life || p.x < -80 || p.x > W + 80 || p.y < -80 || p.y > H + 80) p.life = 0;
+    if (p.trail.length === 0 || dist(p.trail[p.trail.length - 1], p) > 5) {
+      p.trail.push({ x: p.x, y: p.y });
+      if (p.trail.length > 50) p.trail.shift();
+    }
+  }
+  for (let i = atomicParticles.length - 1; i >= 0; i--) {
+    if (atomicParticles[i].life <= 0 || atomicParticles[i].age > atomicParticles[i].life) atomicParticles.splice(i, 1);
+  }
+  for (const b of bodies) {
+    if (b.atomic && b.atomic.kind === 'cloud') {
+      for (const tr of b.atomic.tracks) tr.age += dt;
+      b.atomic.tracks = b.atomic.tracks.filter(tr => tr.age < 6);
+    }
+    if (b.atomic && b.atomic.kind === 'photo') {
+      if (b.atomic.hitCooldown > 0) b.atomic.hitCooldown = Math.max(0, b.atomic.hitCooldown - dt);
+      if (b.atomic.hitFlash > 0) b.atomic.hitFlash -= dt * 3;
+      if (b.atomic.glow > 0) {
+        b.atomic.glow = Math.max(0, b.atomic.glow - dt * 1.6);
+        b.atomic.emitTimer += dt;
+        if (b.atomic.emitTimer > .24) {
+          b.atomic.emitTimer = 0;
+          spawnAtomicParticle('electron', b.pos.x, b.pos.y, -130 - Math.random() * 80, (Math.random() - .5) * 70);
+        }
+      }
+    }
+  }
+}
+
 function anchorPos(a) {
   if (a.body) {
     if (!bodies.includes(a.body)) return null;
@@ -1508,6 +1889,18 @@ function applyConstraintForces(dt) {
   for (const c of constraints) {
     const pa = anchorPos(c.a), pb = anchorPos(c.b);
     if (!pa || !pb) continue;
+    if (c.ctype === 'rope' && c.pulley && bodies.includes(c.pulley)) {
+      const pp = c.pulley.pos;
+      const la = Math.hypot(pa.x - pp.x, pa.y - pp.y);
+      const lb = Math.hypot(pb.x - pp.x, pb.y - pp.y);
+      const len = la + lb;
+      if (len <= c.rest || la < 1e-3 || lb < 1e-3) { c.tension = 0; continue; }
+      const force = clamp(c.k * (len - c.rest), -6000, 6000);
+      c.tension = Math.abs(force);
+      if (c.a.body) applyForceAt(c.a.body, (pp.x - pa.x) / la * force, (pp.y - pa.y) / la * force, pa.x, pa.y);
+      if (c.b.body) applyForceAt(c.b.body, (pp.x - pb.x) / lb * force, (pp.y - pb.y) / lb * force, pb.x, pb.y);
+      continue;
+    }
     const d = sub(pb, pa);
     const len = hypot(d.x, d.y);
     if (len < 1e-4) continue;
@@ -1565,7 +1958,7 @@ function integrate(dt) {
 }
 
 function keepInBounds(b) {
-  if (b.static || b.isDragged) return;
+  if (b.static || b.isDragged || b.pivot) return;
   const pad = 7;
   const bounce = 0.28;
   // 用真实旋转 AABB 夹边界；不再用外接圆半径，否则方块、三角、长杆会在离墙很远时就被挡住。
@@ -1944,6 +2337,326 @@ function makeIce(x, y, o = {}) {
     w, h, ...o
   });
 }
+
+/* ---------- 光学 ---------- */
+function makeLaser(x, y, o = {}) {
+  return polyBody('laser', x, y, rectVerts(58, 24), {
+    name: '激光器', material: 'steel', static: true, friction: .5, restitution: .1,
+    w: 58, h: 24, angle: o.angle == null ? 0 : o.angle,
+    optic: { kind: 'laser', color: o.color || '#c24d32', wavelength: o.wavelength || 632 },
+    ...o
+  });
+}
+function makeMirror(x, y, o = {}) {
+  return polyBody('mirror', x, y, rectVerts(96, 8), {
+    name: '平面镜', material: 'paper', static: true, friction: .3, restitution: .1,
+    w: 96, h: 8, angle: o.angle == null ? -0.72 : o.angle,
+    optic: { kind: 'mirror', reflectivity: .94 }, ...o
+  });
+}
+function makeLens(x, y, o = {}) {
+  return polyBody('lens', x, y, ellipseVerts(13, 46, 20), {
+    name: '凸透镜', material: 'paper', static: true, noCollide: true, friction: .2, restitution: .1,
+    w: 26, h: 92, angle: o.angle == null ? 0 : o.angle,
+    optic: { kind: 'lens', focal: o.focal == null ? 150 : o.focal, aperture: 92 }, ...o
+  });
+}
+function makePrism(x, y, o = {}) {
+  return polyBody('prism', x, y, [{ x: -44, y: 38 }, { x: 44, y: 38 }, { x: 0, y: -38 }], {
+    name: '三棱镜', material: 'paper', static: true, noCollide: true, friction: .2, restitution: .1,
+    w: 88, h: 76, angle: o.angle == null ? 0 : o.angle,
+    optic: { kind: 'prism', dispersion: o.dispersion == null ? 1 : o.dispersion }, ...o
+  });
+}
+function makeScreen(x, y, o = {}) {
+  return polyBody('screen', x, y, rectVerts(10, 128), {
+    name: '光屏', material: 'paper', static: true, friction: .4, restitution: .1,
+    w: 10, h: 128, angle: o.angle == null ? 0 : o.angle,
+    optic: { kind: 'screen', hits: [] }, ...o
+  });
+}
+
+/* ---------- 热学 ---------- */
+function makeHeater(x, y, o = {}) {
+  return polyBody('heater', x, y, rectVerts(72, 46), {
+    name: '热源', material: 'steel', static: true, friction: .5, restitution: .1,
+    w: 72, h: 46, angle: o.angle || 0,
+    thermal: { kind: 'heater', power: o.power == null ? 220 : o.power, temp: o.temp == null ? 420 : o.temp }, ...o
+  });
+}
+function makeCooler(x, y, o = {}) {
+  return polyBody('cooler', x, y, rectVerts(72, 46), {
+    name: '制冷片', material: 'steel', static: true, friction: .5, restitution: .1,
+    w: 72, h: 46, angle: o.angle || 0,
+    thermal: { kind: 'cooler', power: o.power == null ? 180 : o.power, temp: o.temp == null ? 150 : o.temp }, ...o
+  });
+}
+function makeThermometer(x, y, o = {}) {
+  return polyBody('thermometer', x, y, rectVerts(24, 88), {
+    name: '温度计', material: 'paper', static: true, noCollide: true, friction: .3, restitution: .1,
+    w: 24, h: 88, angle: o.angle || 0, thermal: { kind: 'thermo', reading: 293 }, ...o
+  });
+}
+function makeConductor(x, y, o = {}) {
+  return polyBody('conductor', x, y, rectVerts(150, 16), {
+    name: '导热棒', material: 'steel', density: 7.8, friction: .35, restitution: .12,
+    w: 150, h: 16, angle: o.angle || 0, thermal: { kind: 'conductor', k: 3.2, temp: 293 }, ...o
+  });
+}
+function makeInsulator(x, y, o = {}) {
+  return polyBody('insulator', x, y, rectVerts(124, 22), {
+    name: '绝热板', material: 'paper', static: true, friction: .5, restitution: .1,
+    w: 124, h: 22, angle: o.angle || 0, thermal: { kind: 'insulator', k: .02, temp: 293 }, ...o
+  });
+}
+
+/* ---------- 磁学 ---------- */
+function makeCompass(x, y, o = {}) {
+  return polyBody('compass', x, y, regularVerts(23, 20), {
+    name: '指南针', material: 'paper', static: true, noCollide: true, friction: .3, restitution: .1,
+    w: 46, h: 46, angle: o.angle || 0, magtool: { kind: 'compass', needle: -Math.PI / 2, B: 0 }, ...o
+  });
+}
+function makeGaussMeter(x, y, o = {}) {
+  return polyBody('gaussmeter', x, y, rectVerts(72, 52), {
+    name: '高斯计', material: 'paper', static: true, noCollide: true, friction: .3, restitution: .1,
+    w: 72, h: 52, angle: o.angle || 0, magtool: { kind: 'gauss', B: 0 }, ...o
+  });
+}
+function makeHall(x, y, o = {}) {
+  return polyBody('hall', x, y, rectVerts(66, 30), {
+    name: '霍尔片', material: 'paper', static: true, noCollide: true, friction: .3, restitution: .1,
+    w: 66, h: 30, angle: o.angle || 0, magtool: { kind: 'hall', B: 0, V: 0, current: .02 }, ...o
+  });
+}
+function makeShield(x, y, o = {}) {
+  return polyBody('shield', x, y, rectVerts(120, 76), {
+    name: '磁屏蔽罩', material: 'steel', static: true, noCollide: true, friction: .3, restitution: .1,
+    w: 120, h: 76, angle: o.angle || 0, shield: { attenuation: .08 }, ...o
+  });
+}
+function makeInduction(x, y, o = {}) {
+  const b = polyBody('induction', x, y, rectVerts(56, 56), {
+    name: '感应线圈', material: 'brass', static: true, friction: .4, restitution: .1,
+    w: 56, h: 56, angle: o.angle || 0,
+    electrical: { kind: 'induction', R: 3, voltage: 0 }, induction: { turns: 200, area: .02, B: 0, prevB: 0, emf: 0 },
+    ...o
+  });
+  b.pins = [{ x: -24, y: 20, label: 'A' }, { x: 24, y: 20, label: 'B' }];
+  b.circuitState = { current: 0, voltage: 0 };
+  return b;
+}
+
+/* ---------- 原子物理 ---------- */
+function makeNucleus(x, y, o = {}) {
+  return circleBody('nucleus', x, y, o.r || 19, {
+    name: '原子核', material: 'plasma', static: true, noCollide: true, friction: .2, restitution: .1,
+    charge: o.charge == null ? 3 : o.charge, atomic: { kind: 'nucleus' }, ...o
+  });
+}
+function makeElectron(x, y, o = {}) {
+  return circleBody('electron', x, y, o.r || 7, {
+    name: '电子', material: 'particle', density: .04, friction: .05, restitution: .8,
+    noCollide: true, gravityScale: 0, charge: -1, atomic: { kind: 'electron' }, ...o
+  });
+}
+function makeAlphaSource(x, y, o = {}) {
+  return polyBody('alphasource', x, y, rectVerts(58, 40), {
+    name: 'α 源', material: 'steel', static: true, noCollide: true, friction: .4, restitution: .1,
+    w: 58, h: 40, angle: o.angle == null ? 0 : o.angle,
+    atomic: { kind: 'alphaSource', interval: o.interval == null ? 1.2 : o.interval, timer: 0, speed: o.speed == null ? 210 : o.speed }, ...o
+  });
+}
+function makeCloud(x, y, o = {}) {
+  return polyBody('cloud', x, y, rectVerts(220, 150), {
+    name: '云室', material: 'paper', static: true, noCollide: true, friction: .2, restitution: .1,
+    w: 220, h: 150, angle: o.angle || 0, atomic: { kind: 'cloud', tracks: [] }, ...o
+  });
+}
+function makePhotoPlate(x, y, o = {}) {
+  return polyBody('photoplate', x, y, rectVerts(12, 108), {
+    name: '光电板', material: 'steel', static: true, friction: .4, restitution: .1,
+    w: 12, h: 108, angle: o.angle == null ? 0 : o.angle,
+    atomic: { kind: 'photo', hits: 0, emitTimer: 0, glow: 0, hitCooldown: 0 }, ...o
+  });
+}
+/* ---- 扩容：力学 5 ---- */
+function makeCart(x, y, o = {}) {
+  return polyBody('cart', x, y, rectVerts(84, 34), {
+    name: '小车', density: 1.4, friction: .55, restitution: .12, w: 84, h: 34,
+    mech: { kind: 'cart', power: o.power == null ? 1 : o.power, on: true }, ...o
+  });
+}
+function makeWheel(x, y, o = {}) {
+  return circleBody('wheel', x, y, 27, {
+    name: '车轮', density: 3, friction: .85, restitution: .15,
+    mech: { kind: 'wheel', spin: 0 }, ...o
+  });
+}
+function makeWindmill(x, y, o = {}) {
+  return polyBody('windmill', x, y, rectVerts(26, 104), {
+    name: '风车', material: 'brass', static: true, friction: .5, restitution: .1, w: 26, h: 104,
+    mech: { kind: 'windmill', blade: 0 }, ...o
+  });
+}
+function makePulley(x, y, o = {}) {
+  return circleBody('pulley', x, y, 24, {
+    name: '定滑轮', material: 'brass', static: true, noCollide: true, friction: .5, restitution: .1,
+    mech: { kind: 'pulley' }, ...o
+  });
+}
+function makeLever(x, y, o = {}) {
+  return polyBody('lever', x, y, rectVerts(170, 12), {
+    name: '杠杆', material: 'wood', pivot: true, density: 2.2, friction: .5, restitution: .1, w: 170, h: 12,
+    mech: { kind: 'lever', pivot: 0 }, ...o
+  });
+}
+/* ---- 扩容：电学 5 ---- */
+function makeVoltmeter(x, y, o = {}) { return makeElectrical('voltmeter', x, y, o); }
+function makeFuse(x, y, o = {}) { return makeElectrical('fuse', x, y, o); }
+function makeDiode(x, y, o = {}) { return makeElectrical('diode', x, y, o); }
+function makeRheostat(x, y, o = {}) {
+  const b = makeElectrical('rheostat', x, y, o);
+  if (b) {
+    b.rheostatPos = o.pos == null ? .5 : clamp(o.pos, 0, 1);
+    b.electrical.R = .5 + b.rheostatPos * 19.5;
+  }
+  return b;
+}
+function makeMotor(x, y, o = {}) { return makeElectrical('motor', x, y, o); }
+/* ---- 扩容：磁学 5 ---- */
+function makeHelmholtz(x, y, o = {}) {
+  return polyBody('helmholtz', x, y, rectVerts(160, 120), {
+    name: '亥姆霍兹线圈', material: 'steel', static: true, noCollide: true, friction: .4, restitution: .1,
+    w: 160, h: 120, magdevice: { kind: 'helmholtz', B: o.B == null ? .8 : o.B }, ...o
+  });
+}
+function makeAmpereWire(x, y, o = {}) {
+  const b = polyBody('amperewire', x, y, rectVerts(130, 10), {
+    name: '安培力导线', material: 'steel', density: 2.2, friction: .3, restitution: .1,
+    w: 130, h: 10, electrical: { kind: 'amperewire', R: .35 },
+    magdevice: { kind: 'ampere', F: 0 }, ...o
+  });
+  b.pins = [{ x: -58, y: 0, label: 'A' }, { x: 58, y: 0, label: 'B' }];
+  b.circuitState = { current: 0, voltage: 0 };
+  return b;
+}
+function makeMaglev(x, y, o = {}) {
+  return polyBody('maglev', x, y, rectVerts(70, 28), {
+    name: '磁悬浮块', material: 'steel', density: .8, friction: .25, restitution: .2,
+    w: 70, h: 28, magdevice: { kind: 'maglev', lift: 0 }, ...o
+  });
+}
+function makeFilings(x, y, o = {}) {
+  return polyBody('ironfilings', x, y, rectVerts(170, 120), {
+    name: '铁屑板', material: 'paper', static: true, noCollide: true, friction: .3, restitution: .1,
+    w: 170, h: 120, magdevice: { kind: 'filings' }, ...o
+  });
+}
+function makeCurrentBalance(x, y, o = {}) {
+  return polyBody('currentbalance', x, y, rectVerts(100, 54), {
+    name: '电流天平', material: 'brass', static: true, noCollide: true, friction: .4, restitution: .1,
+    w: 100, h: 54, magdevice: { kind: 'balance', F: 0 }, ...o
+  });
+}
+/* ---- 扩容：光学 5 ---- */
+function makeBeamSplitter(x, y, o = {}) {
+  return polyBody('beamsplitter', x, y, rectVerts(12, 100), {
+    name: '分光镜', material: 'glass', static: true, friction: .2, restitution: .1, w: 12, h: 100,
+    optic: { kind: 'splitter', ratio: .5 }, ...o
+  });
+}
+function makeConcave(x, y, o = {}) {
+  return polyBody('concave', x, y, rectVerts(12, 100), {
+    name: '凹面镜', material: 'steel', static: true, friction: .2, restitution: .1, w: 12, h: 100,
+    optic: { kind: 'concave', focal: 130 }, ...o
+  });
+}
+function makePolarizer(x, y, o = {}) {
+  return polyBody('polarizer', x, y, rectVerts(12, 100), {
+    name: '偏振片', material: 'glass', static: true, friction: .2, restitution: .1, w: 12, h: 100,
+    optic: { kind: 'polarizer', axis: 0 }, ...o
+  });
+}
+function makeFilter(x, y, o = {}) {
+  return polyBody('filter', x, y, rectVerts(12, 100), {
+    name: '滤光片', material: 'glass', static: true, friction: .2, restitution: .1, w: 12, h: 100,
+    optic: { kind: 'filter', wavelength: 532 }, ...o
+  });
+}
+function makeGrating(x, y, o = {}) {
+  return polyBody('grating', x, y, rectVerts(12, 100), {
+    name: '光栅', material: 'steel', static: true, friction: .2, restitution: .1, w: 12, h: 100,
+    optic: { kind: 'grating', lines: 300 }, ...o
+  });
+}
+/* ---- 扩容：热学 5 ---- */
+function makeThermocouple(x, y, o = {}) {
+  const b = polyBody('thermocouple', x, y, rectVerts(56, 40), {
+    name: '热电偶', material: 'brass', friction: .4, restitution: .1, w: 56, h: 40,
+    electrical: { kind: 'thermocouple', R: 2, voltage: 0 },
+    thermal: { kind: 'thermocouple', hot: 373, cold: 293 }, ...o
+  });
+  b.pins = [{ x: -22, y: 0, label: '−' }, { x: 22, y: 0, label: '+' }];
+  b.circuitState = { current: 0, voltage: 0 };
+  return b;
+}
+function makeRadiator(x, y, o = {}) {
+  return polyBody('radiator', x, y, rectVerts(110, 18), {
+    name: '散热片', material: 'steel', static: true, friction: .3, restitution: .1, w: 110, h: 18,
+    thermal: { kind: 'radiator' }, ...o
+  });
+}
+function makePhaseChange(x, y, o = {}) {
+  return polyBody('phasechange', x, y, rectVerts(56, 56), {
+    name: '相变块', material: 'ice', density: .92, friction: .15, restitution: .1, w: 56, h: 56,
+    temperature: 263, thermal: { kind: 'phaseChange', melt: 0 }, ...o
+  });
+}
+function makeExpansion(x, y, o = {}) {
+  return polyBody('expansion', x, y, rectVerts(140, 10), {
+    name: '热膨胀杆', material: 'steel', density: 3, friction: .4, restitution: .1, w: 140, h: 10,
+    thermal: { kind: 'expansion', baseW: 140 }, ...o
+  });
+}
+function makeCalorimeter(x, y, o = {}) {
+  return circleBody('calorimeter', x, y, 34, {
+    name: '量热器', material: 'steel', static: true, noCollide: true, friction: .3, restitution: .1,
+    thermal: { kind: 'calorimeter', Q: 0 }, ...o
+  });
+}
+/* ---- 扩容：原子 5 ---- */
+function makeBetaSource(x, y, o = {}) {
+  return polyBody('betasource', x, y, rectVerts(58, 40), {
+    name: 'β 源', material: 'steel', static: true, noCollide: true, friction: .4, restitution: .1,
+    w: 58, h: 40, atomic: { kind: 'betaSource', interval: 1.5, timer: 0, speed: 190 }, ...o
+  });
+}
+function makeGammaSource(x, y, o = {}) {
+  return polyBody('gammasource', x, y, rectVerts(58, 40), {
+    name: 'γ 源', material: 'steel', static: true, noCollide: true, friction: .4, restitution: .1,
+    w: 58, h: 40, atomic: { kind: 'gammaSource', interval: 2, timer: 0, speed: 320 }, ...o
+  });
+}
+function makeGeiger(x, y, o = {}) {
+  return polyBody('geiger', x, y, rectVerts(56, 90), {
+    name: '盖革计数器', material: 'paper', static: true, noCollide: true, friction: .3, restitution: .1,
+    w: 56, h: 90, atomic: { kind: 'geiger', count: 0, rate: 0 }, ...o
+  });
+}
+function makeElectronGun(x, y, o = {}) {
+  return polyBody('electrongun', x, y, rectVerts(74, 30), {
+    name: '电子枪', material: 'steel', static: true, noCollide: true, friction: .4, restitution: .1,
+    w: 74, h: 30, atomic: { kind: 'electronGun', interval: .9, timer: 0, speed: 260 }, ...o
+  });
+}
+function makeMassSpec(x, y, o = {}) {
+  return polyBody('massspec', x, y, rectVerts(180, 120), {
+    name: '质谱仪', material: 'paper', static: true, noCollide: true, friction: .3, restitution: .1,
+    w: 180, h: 120, atomic: { kind: 'massSpec', radius: 0, B: .9 }, ...o
+  });
+}
+
 function makeElectrical(type, x, y, o = {}) {
   const cfg = {
     battery: { name: '电池', w: 78, h: 42, material: 'steel', pins: [{ x: -33, y: 0, label: '−' }, { x: 33, y: 0, label: '+' }], elec: { kind: 'battery', voltage: 6, internalR: .5 } },
@@ -1952,7 +2665,12 @@ function makeElectrical(type, x, y, o = {}) {
     switch: { name: '开关', w: 74, h: 28, material: 'brass', pins: [{ x: -32, y: 0, label: 'A' }, { x: 32, y: 0, label: 'B' }], elec: { kind: 'switch', closed: true, R: .002 } },
     capacitor: { name: '电容', w: 60, h: 48, material: 'paper', pins: [{ x: -30, y: 0, label: '−' }, { x: 30, y: 0, label: '+' }], elec: { kind: 'capacitor', C: .05, vPrev: 0 } },
     ammeter: { name: '电流表', w: 62, h: 48, material: 'paper', pins: [{ x: -29, y: 0, label: 'A' }, { x: 29, y: 0, label: 'B' }], elec: { kind: 'ammeter', R: .01 } },
-    led: { name: 'LED灯', w: 54, h: 34, material: 'brass', pins: [{ x: -24, y: 0, label: '−' }, { x: 24, y: 0, label: '+' }], elec: { kind: 'led', R: 200, rated: .03 } }
+    led: { name: 'LED灯', w: 54, h: 34, material: 'brass', pins: [{ x: -24, y: 0, label: '−' }, { x: 24, y: 0, label: '+' }], elec: { kind: 'led', R: 200, rated: .03 } },
+    voltmeter: { name: '电压表', w: 70, h: 50, material: 'paper', pins: [{ x: -32, y: 0, label: '−' }, { x: 32, y: 0, label: '+' }], elec: { kind: 'voltmeter', R: 1e6 } },
+    fuse: { name: '保险丝', w: 62, h: 24, material: 'glass', pins: [{ x: -25, y: 0, label: 'A' }, { x: 25, y: 0, label: 'B' }], elec: { kind: 'fuse', R: .04, limit: .55, blown: false } },
+    diode: { name: '二极管', w: 62, h: 26, material: 'steel', pins: [{ x: -25, y: 0, label: '−' }, { x: 25, y: 0, label: '+' }], elec: { kind: 'diode', R: 2 } },
+    rheostat: { name: '滑动变阻器', w: 82, h: 30, material: 'paper', pins: [{ x: -35, y: 0, label: 'A' }, { x: 35, y: 0, label: 'B' }], elec: { kind: 'rheostat', R: 20 } },
+    motor: { name: '电动机', w: 62, h: 50, material: 'brass', pins: [{ x: -26, y: 0, label: 'A' }, { x: 26, y: 0, label: 'B' }], elec: { kind: 'motor', R: 3, speed: 0 } }
   }[type];
   if (!cfg) return null;
   const elec = Object.assign({}, cfg.elec, o.elec || {});
@@ -1980,7 +2698,7 @@ const COMPONENTS = {
   platform: { name: '平台', cat: 'mech', kind: 'body', icon: 'platform', note: '静态平台', make: (x, y, o) => makePlatform(x, y, o || {}) },
   fan: { name: '风扇', cat: 'mech', kind: 'body', icon: 'fan', note: '定向气流 · N', make: (x, y, o) => makeFan(x, y, o || {}) },
   thruster: { name: '推进器', cat: 'mech', kind: 'body', icon: 'thruster', note: '持续推力 · 可旋转', make: (x, y, o) => makeThruster(x, y, o || {}) },
-  magnet: { name: '磁铁', cat: 'mech', kind: 'body', icon: 'magnet', note: '吸引铁质物体', make: (x, y, o) => makeMagnet(x, y, o || {}) },
+  magnet: { name: '磁铁', cat: 'mag', kind: 'body', icon: 'magnet', note: '吸引铁质物体', make: (x, y, o) => makeMagnet(x, y, o || {}) },
   anchor: { name: '背景锚点', cat: 'mech', kind: 'body', icon: 'anchor', note: '固定在背景的挂点', make: (x, y, o) => makeAnchor(x, y, o || {}) },
   domino: { name: '多米诺', cat: 'mech', kind: 'body', icon: 'domino', note: '长条刚体 · 可连锁', make: (x, y, o) => makeDomino(x, y, o || {}) },
   balloon: { name: '气球', cat: 'mech', kind: 'body', icon: 'balloon', note: '浮力向上 · 轻', make: (x, y, o) => makeBalloon(x, y, o || {}) },
@@ -2000,20 +2718,129 @@ const COMPONENTS = {
   ammeter: { name: '电流表', cat: 'elec', kind: 'body', icon: 'ammeter', note: '测量支路电流', make: (x, y, o) => makeElectrical('ammeter', x, y, o || {}) },
   led: { name: 'LED灯', cat: 'elec', kind: 'body', icon: 'led', note: '单向导通 · 通电发光', make: (x, y, o) => makeElectrical('led', x, y, o || {}) },
   charge: { name: '电荷球', cat: 'elec', kind: 'body', icon: 'charge', note: '库仑力 · 可调电荷', make: (x, y, o) => makeCharge(x, y, o || {}) },
-  solenoid: { name: '电磁铁', cat: 'elec', kind: 'body', icon: 'solenoid', note: '电流产生磁场吸力', make: (x, y, o) => makeSolenoid(x, y, o || {}) },
-  field: { name: '电场区', cat: 'quantum', kind: 'body', icon: 'field', note: '匀强电场 qE', make: (x, y, o) => makeField(x, y, o || {}) },
-  magfield: { name: '磁场区', cat: 'quantum', kind: 'body', icon: 'magfield', note: '洛伦兹力 qv×B', make: (x, y, o) => makeMagField(x, y, o || {}) },
-  gravfield: { name: '重力场区', cat: 'quantum', kind: 'body', icon: 'gravfield', note: '自定义方向重力', make: (x, y, o) => makeGravField(x, y, o || {}) },
-  windfield: { name: '风场区', cat: 'quantum', kind: 'body', icon: 'windfield', note: '区域风力', make: (x, y, o) => makeWindField(x, y, o || {}) },
-  gravitywell: { name: '引力井', cat: 'quantum', kind: 'body', icon: 'gravitywell', note: '向心引力场', make: (x, y, o) => makeGravityWell(x, y, o || {}) },
-  quantum: { name: '量子粒子', cat: 'quantum', kind: 'body', icon: 'quantum', note: '波包 · 量子隧穿', make: (x, y, o) => makeQuantum(x, y, o || {}) },
-  barrier: { name: '势垒', cat: 'quantum', kind: 'body', icon: 'barrier', note: '量子隧穿势垒', make: (x, y, o) => makeBarrier(x, y, o || {}) },
-  slit: { name: '双缝', cat: 'quantum', kind: 'body', icon: 'slit', note: '双缝干涉 · 量子', make: (x, y, o) => makeSlit(x, y, o || {}) },
-  qubit: { name: '量子比特', cat: 'quantum', kind: 'body', icon: 'qubit', note: '双击测量坍缩', make: (x, y, o) => makeQubit(x, y, o || {}) },
-  qsource: { name: '量子源', cat: 'quantum', kind: 'body', icon: 'qsource', note: '定时发射量子粒子', make: (x, y, o) => makeQSource(x, y, o || {}) },
-  entangle: { name: '量子纠缠', cat: 'quantum', kind: 'pair', icon: 'entangle', note: '测量自旋关联', make: null }
+  solenoid: { name: '电磁铁', cat: 'mag', kind: 'body', icon: 'solenoid', note: '电流产生磁场吸力', make: (x, y, o) => makeSolenoid(x, y, o || {}) },
+  field: { name: '电场区', cat: 'elec', kind: 'body', icon: 'field', note: '匀强电场 qE', make: (x, y, o) => makeField(x, y, o || {}) },
+  magfield: { name: '磁场区', cat: 'mag', kind: 'body', icon: 'magfield', note: '洛伦兹力 qv×B', make: (x, y, o) => makeMagField(x, y, o || {}) },
+  gravfield: { name: '重力场区', cat: 'mech', kind: 'body', icon: 'gravfield', note: '自定义方向重力', make: (x, y, o) => makeGravField(x, y, o || {}) },
+  windfield: { name: '风场区', cat: 'mech', kind: 'body', icon: 'windfield', note: '区域风力', make: (x, y, o) => makeWindField(x, y, o || {}) },
+  gravitywell: { name: '引力井', cat: 'mech', kind: 'body', icon: 'gravitywell', note: '向心引力场', make: (x, y, o) => makeGravityWell(x, y, o || {}) },
+  quantum: { name: '量子粒子', cat: 'atomic', kind: 'body', icon: 'quantum', note: '波包 · 量子隧穿', make: (x, y, o) => makeQuantum(x, y, o || {}) },
+  barrier: { name: '势垒', cat: 'atomic', kind: 'body', icon: 'barrier', note: '量子隧穿势垒', make: (x, y, o) => makeBarrier(x, y, o || {}) },
+  slit: { name: '双缝', cat: 'atomic', kind: 'body', icon: 'slit', note: '双缝干涉 · 量子', make: (x, y, o) => makeSlit(x, y, o || {}) },
+  qubit: { name: '量子比特', cat: 'atomic', kind: 'body', icon: 'qubit', note: '双击测量坍缩', make: (x, y, o) => makeQubit(x, y, o || {}) },
+  qsource: { name: '量子源', cat: 'atomic', kind: 'body', icon: 'qsource', note: '定时发射量子粒子', make: (x, y, o) => makeQSource(x, y, o || {}) },
+  laser: { name: '激光器', cat: 'optics', kind: 'body', icon: 'laser', note: '发射单色光 · 可旋转', make: (x, y, o) => makeLaser(x, y, o || {}) },
+  mirror: { name: '平面镜', cat: 'optics', kind: 'body', icon: 'mirror', note: '镜面反射 · 可旋转', make: (x, y, o) => makeMirror(x, y, o || {}) },
+  lens: { name: '凸透镜', cat: 'optics', kind: 'body', icon: 'lens', note: '会聚/发散 · 焦距可调', make: (x, y, o) => makeLens(x, y, o || {}) },
+  prism: { name: '三棱镜', cat: 'optics', kind: 'body', icon: 'prism', note: '色散分光', make: (x, y, o) => makePrism(x, y, o || {}) },
+  screen: { name: '光屏', cat: 'optics', kind: 'body', icon: 'screen', note: '显示光斑', make: (x, y, o) => makeScreen(x, y, o || {}) },
+  heater: { name: '热源', cat: 'thermo', kind: 'body', icon: 'heater', note: '持续放热 · 可调温度', make: (x, y, o) => makeHeater(x, y, o || {}) },
+  cooler: { name: '制冷片', cat: 'thermo', kind: 'body', icon: 'cooler', note: '持续吸热 · 可调温度', make: (x, y, o) => makeCooler(x, y, o || {}) },
+  thermometer: { name: '温度计', cat: 'thermo', kind: 'body', icon: 'thermometer', note: '读取环境温度', make: (x, y, o) => makeThermometer(x, y, o || {}) },
+  conductor: { name: '导热棒', cat: 'thermo', kind: 'body', icon: 'conductor', note: '高导热 · 温度梯度', make: (x, y, o) => makeConductor(x, y, o || {}) },
+  insulator: { name: '绝热板', cat: 'thermo', kind: 'body', icon: 'insulator', note: '低导热 · 保温', make: (x, y, o) => makeInsulator(x, y, o || {}) },
+  compass: { name: '指南针', cat: 'mag', kind: 'body', icon: 'compass', note: '指向合磁场方向', make: (x, y, o) => makeCompass(x, y, o || {}) },
+  gaussmeter: { name: '高斯计', cat: 'mag', kind: 'body', icon: 'gaussmeter', note: '测量磁感应强度', make: (x, y, o) => makeGaussMeter(x, y, o || {}) },
+  hall: { name: '霍尔片', cat: 'mag', kind: 'body', icon: 'hall', note: '霍尔电压 ∝ B', make: (x, y, o) => makeHall(x, y, o || {}) },
+  shield: { name: '磁屏蔽罩', cat: 'mag', kind: 'body', icon: 'shield', note: '削弱罩内磁场', make: (x, y, o) => makeShield(x, y, o || {}) },
+  induction: { name: '感应线圈', cat: 'mag', kind: 'body', icon: 'induction', note: '磁通变化产生电动势', make: (x, y, o) => makeInduction(x, y, o || {}) },
+  nucleus: { name: '原子核', cat: 'atomic', kind: 'body', icon: 'nucleus', note: '带正电 · 固定靶', make: (x, y, o) => makeNucleus(x, y, o || {}) },
+  electron: { name: '电子', cat: 'atomic', kind: 'body', icon: 'electron', note: '轻 · 带负电', make: (x, y, o) => makeElectron(x, y, o || {}) },
+  alphasource: { name: 'α 源', cat: 'atomic', kind: 'body', icon: 'alphasource', note: '定时发射 α 粒子', make: (x, y, o) => makeAlphaSource(x, y, o || {}) },
+  cloud: { name: '云室', cat: 'atomic', kind: 'body', icon: 'cloud', note: '记录带电粒子径迹', make: (x, y, o) => makeCloud(x, y, o || {}) },
+  photoplate: { name: '光电板', cat: 'atomic', kind: 'body', icon: 'photoplate', note: '光照发射电子', make: (x, y, o) => makePhotoPlate(x, y, o || {}) },
+  entangle: { name: '量子纠缠', cat: 'atomic', kind: 'pair', icon: 'entangle', note: '测量自旋关联', make: null },
+  cart: { name: '小车', cat: 'mech', kind: 'body', icon: 'cart', note: '自驱小车 · 可载物', make: (x, y, o) => makeCart(x, y, o || {}) },
+  wheel: { name: '车轮', cat: 'mech', kind: 'body', icon: 'wheel', note: '高摩擦圆轮', make: (x, y, o) => makeWheel(x, y, o || {}) },
+  windmill: { name: '风车', cat: 'mech', kind: 'body', icon: 'windmill', note: '随风转动的叶片', make: (x, y, o) => makeWindmill(x, y, o || {}) },
+  pulley: { name: '定滑轮', cat: 'mech', kind: 'body', icon: 'pulley', note: '改变绳子方向', make: (x, y, o) => makePulley(x, y, o || {}) },
+  lever: { name: '杠杆', cat: 'mech', kind: 'body', icon: 'lever', note: '支点放大扭矩', make: (x, y, o) => makeLever(x, y, o || {}) },
+  voltmeter: { name: '电压表', cat: 'elec', kind: 'body', icon: 'voltmeter', note: '高阻测量电压', make: (x, y, o) => makeVoltmeter(x, y, o || {}) },
+  fuse: { name: '保险丝', cat: 'elec', kind: 'body', icon: 'fuse', note: '过流熔断保护', make: (x, y, o) => makeFuse(x, y, o || {}) },
+  diode: { name: '二极管', cat: 'elec', kind: 'body', icon: 'diode', note: '单向导通', make: (x, y, o) => makeDiode(x, y, o || {}) },
+  rheostat: { name: '滑动变阻器', cat: 'elec', kind: 'body', icon: 'rheostat', note: '可调电阻', make: (x, y, o) => makeRheostat(x, y, o || {}) },
+  motor: { name: '电动机', cat: 'elec', kind: 'body', icon: 'motor', note: '电能转机械能', make: (x, y, o) => makeMotor(x, y, o || {}) },
+  helmholtz: { name: '亥姆霍兹线圈', cat: 'mag', kind: 'body', icon: 'helmholtz', note: '产生均匀磁场', make: (x, y, o) => makeHelmholtz(x, y, o || {}) },
+  amperewire: { name: '安培力导线', cat: 'mag', kind: 'body', icon: 'amperewire', note: 'F = BIL', make: (x, y, o) => makeAmpereWire(x, y, o || {}) },
+  maglev: { name: '磁悬浮块', cat: 'mag', kind: 'body', icon: 'maglev', note: '磁场中悬浮', make: (x, y, o) => makeMaglev(x, y, o || {}) },
+  ironfilings: { name: '铁屑板', cat: 'mag', kind: 'body', icon: 'ironfilings', note: '显示磁感线方向', make: (x, y, o) => makeFilings(x, y, o || {}) },
+  currentbalance: { name: '电流天平', cat: 'mag', kind: 'body', icon: 'currentbalance', note: '测量安培力', make: (x, y, o) => makeCurrentBalance(x, y, o || {}) },
+  beamsplitter: { name: '分光镜', cat: 'optics', kind: 'body', icon: 'beamsplitter', note: '一半反射一半透射', make: (x, y, o) => makeBeamSplitter(x, y, o || {}) },
+  concave: { name: '凹面镜', cat: 'optics', kind: 'body', icon: 'concave', note: '反射会聚', make: (x, y, o) => makeConcave(x, y, o || {}) },
+  polarizer: { name: '偏振片', cat: 'optics', kind: 'body', icon: 'polarizer', note: '偏振光减半', make: (x, y, o) => makePolarizer(x, y, o || {}) },
+  filter: { name: '滤光片', cat: 'optics', kind: 'body', icon: 'filter', note: '只透过对应颜色', make: (x, y, o) => makeFilter(x, y, o || {}) },
+  grating: { name: '光栅', cat: 'optics', kind: 'body', icon: 'grating', note: '多级衍射', make: (x, y, o) => makeGrating(x, y, o || {}) },
+  thermocouple: { name: '热电偶', cat: 'thermo', kind: 'body', icon: 'thermocouple', note: '温差产生电动势', make: (x, y, o) => makeThermocouple(x, y, o || {}) },
+  radiator: { name: '散热片', cat: 'thermo', kind: 'body', icon: 'radiator', note: '加速附近散热', make: (x, y, o) => makeRadiator(x, y, o || {}) },
+  phasechange: { name: '相变块', cat: 'thermo', kind: 'body', icon: 'phasechange', note: '熔化时保持 273K', make: (x, y, o) => makePhaseChange(x, y, o || {}) },
+  expansion: { name: '热膨胀杆', cat: 'thermo', kind: 'body', icon: 'expansion', note: '长度随温度变化', make: (x, y, o) => makeExpansion(x, y, o || {}) },
+  calorimeter: { name: '量热器', cat: 'thermo', kind: 'body', icon: 'calorimeter', note: '累计吸收热量 Q', make: (x, y, o) => makeCalorimeter(x, y, o || {}) },
+  betasource: { name: 'β 源', cat: 'atomic', kind: 'body', icon: 'betasource', note: '发射高速电子', make: (x, y, o) => makeBetaSource(x, y, o || {}) },
+  gammasource: { name: 'γ 源', cat: 'atomic', kind: 'body', icon: 'gammasource', note: '发射高能光子', make: (x, y, o) => makeGammaSource(x, y, o || {}) },
+  geiger: { name: '盖革计数器', cat: 'atomic', kind: 'body', icon: 'geiger', note: '计数粒子与计数率', make: (x, y, o) => makeGeiger(x, y, o || {}) },
+  electrongun: { name: '电子枪', cat: 'atomic', kind: 'body', icon: 'electrongun', note: '发射电子束', make: (x, y, o) => makeElectronGun(x, y, o || {}) },
+  massspec: { name: '质谱仪', cat: 'atomic', kind: 'body', icon: 'massspec', note: '磁场偏转测半径', make: (x, y, o) => makeMassSpec(x, y, o || {}) }
 };
-const COMPONENT_ORDER = ['ball', 'iron', 'box', 'tri', 'hex', 'feather', 'weight', 'ramp', 'platform', 'fan', 'thruster', 'magnet', 'anchor', 'domino', 'balloon', 'conveyor', 'glass', 'rubber', 'ice', 'spring', 'rope', 'gauge', 'battery', 'wire', 'bulb', 'resistor', 'switch', 'capacitor', 'ammeter', 'led', 'charge', 'solenoid', 'field', 'magfield', 'gravfield', 'windfield', 'gravitywell', 'quantum', 'barrier', 'slit', 'qubit', 'qsource', 'entangle'];
+const COMPONENT_ORDER = [
+  'ball', 'iron', 'box', 'tri', 'hex', 'feather', 'weight', 'ramp', 'platform', 'fan', 'thruster', 'anchor', 'domino', 'balloon', 'conveyor', 'glass', 'rubber', 'ice', 'spring', 'rope', 'gauge', 'gravfield', 'windfield', 'gravitywell', 'cart', 'wheel', 'windmill', 'pulley', 'lever',
+  'battery', 'wire', 'bulb', 'resistor', 'switch', 'capacitor', 'ammeter', 'led', 'charge', 'field', 'voltmeter', 'fuse', 'diode', 'rheostat', 'motor',
+  'magnet', 'solenoid', 'magfield', 'compass', 'gaussmeter', 'hall', 'shield', 'induction', 'helmholtz', 'amperewire', 'maglev', 'ironfilings', 'currentbalance',
+  'laser', 'mirror', 'lens', 'prism', 'screen', 'beamsplitter', 'concave', 'polarizer', 'filter', 'grating',
+  'heater', 'cooler', 'thermometer', 'conductor', 'insulator', 'thermocouple', 'radiator', 'phasechange', 'expansion', 'calorimeter',
+  'quantum', 'barrier', 'slit', 'qubit', 'qsource', 'entangle', 'nucleus', 'electron', 'alphasource', 'cloud', 'photoplate', 'betasource', 'gammasource', 'geiger', 'electrongun', 'massspec'
+];
+
+const CATEGORY_USAGE = {
+  mech: '拖入画布后可做受力、碰撞、堆叠实验；右键调质量/摩擦/尺寸，底部工具栏可固定或旋转。',
+  elec: '用铜线连接两端接线柱组成回路；右键或属性面板调电压、电阻、电容，双击开关可通断。',
+  mag: '放进磁场区或靠近磁铁即可读数/受力；右键调参数，导线类记得接入电路。',
+  optics: '让激光依次穿过/反射到镜面、透镜、棱镜或光屏；旋转元件可改变光路。',
+  thermo: '把热源、导热棒、温度计放在 240px 内观察热传递；右键调温度/功率。',
+  atomic: '用放射源或电子枪发射粒子，配合云室、势垒或双缝观察径迹；双击量子元件可测量。'
+};
+const SPECIAL_USAGE = {
+  lever: '支点固定，杆可绕支点转动；在两端放砝码或让物体撞击，可研究力矩平衡（M=F×L）。',
+  pulley: '右键选“开始穿绳”，再依次点绳子两端；绳子会绕过滑轮改变受力方向。',
+  rheostat: '右键拖动“滑片 %”，或选中后在属性面板调滑片，电阻会在 0.5–20 Ω 之间连续变化。',
+  cart: '自驱小车，放到地面会向前开；可在车上叠放物体测试惯性。',
+  windmill: '固定叶片，风场或风扇经过时会转动，可观察风能转换。',
+  wheel: '高摩擦圆轮，可与小车、斜面组合；单独放置会滚动。',
+  amperewire: '把两端接入电路，再放进磁场区，导线会受到 F=BIL 的横向安培力。',
+  maglev: '放进磁场区/磁铁附近会获得向上磁悬浮升力，可叠放配重。',
+  compass: '放入磁场后指针自动指向合磁场方向，可与磁铁、线圈对比。',
+  gaussmeter: '直接读取所在位置磁感应强度 B，单位 T。',
+  hall: '接入控制电流后放在磁场中，会显示霍尔电压 U_H。',
+  induction: '把两端接入闭合回路，让附近磁通变化（移动磁铁/线圈），会产生感应电动势。',
+  thermocouple: '两端接电路，温差会变成电压；与热源、制冷片组合可做温差发电。',
+  phasechange: '加热到 273K 会开始熔化并保持温度平台，继续加热才升温。',
+  expansion: '温度变化时杆长会伸缩，可观察热胀冷缩。',
+  calorimeter: '吸收/放出热量时累计 Q，可比较不同材料的比热。',
+  alphasource: '定时向右发射 α 粒子，配合云室、原子核观察径迹与散射。',
+  betasource: '发射 β 粒子，在磁场中会向一侧偏转。',
+  gammasource: '发射 γ 射线，不被磁场偏转，可被盖革计数器记录。',
+  geiger: '靠近放射源时计数增加，用来比较源强与距离。',
+  electrongun: '定时发射电子，可在磁场中观察偏转，或打进质谱仪。',
+  massspec: '电子/粒子进入后受磁场偏转，属性面板显示偏转半径。',
+  laser: '发射单色激光；旋转激光器可改变方向，光会与镜面/透镜/棱镜/光屏交互。',
+  screen: '接收光线并记录命中点，用来验证反射/折射/衍射路径。',
+  filter: '只让波长接近设定值的光通过，可配合棱镜做分光。',
+  polarizer: '让通过的光强减半，旋转偏振片可改变偏振方向。',
+  grating: '产生 −2…+2 级衍射条纹，可测波长。',
+  beamsplitter: '把一束光分成反射与透射两路，可搭干涉/分光光路。',
+  concave: '反射并会聚光线，可做凹面镜成像实验。'
+};
+function componentDescription(type) {
+  const d = COMPONENTS[type];
+  if (!d) return '';
+  let use = SPECIAL_USAGE[type];
+  if (!use) {
+    if (d.kind === 'link') use = '先选中它，再拖动首尾或依次点击两个物体/空白锚点；右键或长按可取消当前连线。';
+    else if (d.kind === 'wire') use = '依次点击两个金属接线柱完成接线；右键可调电阻或删除。';
+    else if (d.kind === 'pair') use = '点击画布放置一对纠缠粒子，双击测量自旋关联。';
+    else use = CATEGORY_USAGE[d.cat] || '';
+  }
+  return (d.note ? d.note + '。' : '') + use;
+}
 
 /* =========================================================
    9. 场景与实例
@@ -2035,6 +2862,7 @@ function removeBody(b) {
   if (i >= 0) bodies.splice(i, 1);
   for (let k = constraints.length - 1; k >= 0; k--) {
     if (constraints[k].a.body === b || constraints[k].b.body === b) constraints.splice(k, 1);
+    else if (constraints[k].pulley === b) constraints[k].pulley = null;
   }
   for (let k = wires.length - 1; k >= 0; k--) {
     if (wires[k].a.body === b || wires[k].b.body === b) wires.splice(k, 1);
@@ -2047,11 +2875,15 @@ function clearScene() {
   wires.length = 0;
   pairs.length = 0;
   effects.length = 0;
+  atomicParticles.length = 0;
+  opticalPaths = [];
   selection = null;
   hoverBody = null;
   hoverPin = null;
   wireStart = null;
   connector = null;
+  linkDrag = null;
+  pendingPulley = null;
   pendingType = null;
   dragState = null;
   rotateState = null;
@@ -2118,11 +2950,18 @@ function resetScene() {
   updateEnvUI();
   updatePaletteUI();
   sceneBuiltW = W; sceneBuiltH = H;
-  showHint('拖拽左侧元件开始实验 · 空格暂停 · F 固定 · Del 删除', 4200);
+  showHint(isMobileLayout()
+    ? '点左上角元件库选元件 · 再点画布放置 · 双指缩放/平移 · 长按物体打开菜单'
+    : '拖拽左侧元件开始实验 · 空格暂停 · F 固定 · Del 删除', 5200);
+  if (isMobileLayout()) requestAnimationFrame(() => { fitView(); render(); });
 }
 function layoutDemoCircuit() {
-  const baseY = clamp(H - 330, 210, H - 250);
-  const bx = Math.max(360, W - 222);
+  // 极窄屏（320px 级）放不下演示回路，默认只保留斜面/弹簧/纠缠，避免元件互相压住。
+  if (W < 350) return;
+  // 横屏手机的世界高度可能只有 280px：把回路压缩到地面之上，不能沿用桌面偏移。
+  const baseY = clamp(H - 330, 80, Math.max(80, H - 190));
+  // 窄屏时把回路整体收进世界边界，避免电池/灯泡被裁到画布外。
+  const bx = W < 620 ? Math.max(150, W - 150) : Math.max(360, W - 222);
   const battery = spawnComponent('battery', bx, baseY + 150);
   const bulb = spawnComponent('bulb', bx + 95, baseY + 40);
   const sw = spawnComponent('switch', bx + 95, baseY + 150);
@@ -2260,11 +3099,12 @@ function solveCircuit(dt) {
   for (const b of comps) {
     const e = b.electrical;
     const k0 = pinKey(b, 0), k1 = pinKey(b, 1);
-    if (e.kind === 'battery') {
+    if (e.kind === 'battery' || e.kind === 'induction' || e.kind === 'thermocouple') {
       sources++;
-      elems.push({ type: 'battery', a: k0, b: k1, R: Math.max(.02, e.internalR || .5), V: e.voltage || 0, comp: b });
-    } else if (e.kind === 'resistor' || e.kind === 'bulb' || e.kind === 'ammeter' || e.kind === 'coil' || e.kind === 'led') {
-      elems.push({ type: 'resistor', a: k0, b: k1, R: Math.max(.001, e.R || 10), comp: b });
+      elems.push({ type: 'battery', a: k0, b: k1, R: Math.max(.02, e.internalR || e.R || .5), V: e.voltage || 0, comp: b });
+    } else if (e.kind === 'resistor' || e.kind === 'bulb' || e.kind === 'ammeter' || e.kind === 'coil' || e.kind === 'led' || e.kind === 'voltmeter' || e.kind === 'fuse' || e.kind === 'diode' || e.kind === 'rheostat' || e.kind === 'motor' || e.kind === 'amperewire') {
+      const RR = e.kind === 'fuse' && e.blown ? 1e9 : Math.max(.001, e.R || 10);
+      elems.push({ type: 'resistor', a: k0, b: k1, R: RR, comp: b });
     } else if (e.kind === 'switch') {
       if (e.closed) elems.push({ type: 'resistor', a: k0, b: k1, R: Math.max(.0005, e.R || .002), comp: b });
     } else if (e.kind === 'capacitor') {
@@ -2353,6 +3193,15 @@ function solveCircuit(dt) {
       if (e.comp.electrical.kind === 'led') e.comp.electrical.power = cur * cur * e.R;
       if (e.comp.electrical.kind === 'led') e.comp.electrical.lit = Math.abs(cur) > .004;
       if (e.comp.electrical.kind === 'coil') e.comp.electrical.current = cur;
+      if (e.comp.electrical.kind === 'voltmeter') e.comp.electrical.reading = Math.abs(cur) * e.R;
+      if (e.comp.electrical.kind === 'fuse' && !e.comp.electrical.blown && Math.abs(cur) > (e.comp.electrical.limit || .55)) {
+        e.comp.electrical.blown = true;
+        showHint('保险丝熔断：电流超过 ' + fmt(e.comp.electrical.limit || .55, 2) + ' A', 2600);
+      }
+      if (e.comp.electrical.kind === 'diode') e.comp.electrical.lit = cur > .001;
+      if (e.comp.electrical.kind === 'rheostat') e.comp.electrical.current = cur;
+      if (e.comp.electrical.kind === 'motor') e.comp.electrical.current = cur;
+      if (e.comp.electrical.kind === 'amperewire') e.comp.electrical.current = cur;
     } else if (e.type === 'battery') {
       const vTerm = V(e.b) - V(e.a);
       const delivered = (e.V - vTerm) / e.R;
@@ -2408,13 +3257,13 @@ function rr(x, y, w, h, r) {
 function resizeCanvas() {
   const host = document.getElementById('stageScroll') || canvas.parentElement;
   const rect = host.getBoundingClientRect();
-  const vw = Math.max(320, Math.round(rect.width || host.clientWidth || 900));
-  const vh = Math.max(360, Math.round(rect.height || host.clientHeight || 620));
+  const vw = Math.max(240, Math.round(rect.width || host.clientWidth || 900));
+  const vh = Math.max(180, Math.round(rect.height || host.clientHeight || 620));
   const oldCX = camera.x + viewW / camera.zoom / 2;
   const oldCY = camera.y + viewH / camera.zoom / 2;
   viewW = vw; viewH = vh;
-  W = Math.max(320, Math.round(vw * worldScale));
-  H = Math.max(360, Math.round(vh * worldScale));
+  W = Math.max(240, Math.round(vw * worldScale));
+  H = Math.max(180, Math.round(vh * worldScale));
   DPR = Math.min(2, window.devicePixelRatio || 1);
   canvas.width = Math.round(vw * DPR);
   canvas.height = Math.round(vh * DPR);
@@ -2433,6 +3282,55 @@ function clampCamera() {
   const mx = vw * .22, my = vh * .22;
   camera.x = clamp(camera.x, -mx, Math.max(-mx, W - vw + mx));
   camera.y = clamp(camera.y, -my, Math.max(-my, H - vh + my));
+}
+
+function isMobileLayout() {
+  return window.matchMedia('(max-width: 940px)').matches;
+}
+
+// 让移动端首屏自动框住场景，避免桌面坐标下的元件跑到屏幕外。
+function fitView() {
+  const host = document.getElementById('stageScroll') || canvas.parentElement;
+  if (host) {
+    const rect = host.getBoundingClientRect();
+    if (rect.width > 0 && rect.height > 0 &&
+      (Math.abs(rect.width - viewW) > 2 || Math.abs(rect.height - viewH) > 2)) {
+      resizeCanvas();
+    }
+  }
+  if (!bodies.length || !viewW || !viewH) return;
+  let l = Infinity, r = -Infinity, t = Infinity, b = -Infinity;
+  for (const body of bodies) {
+    if (body.isGround) continue;
+    const box = body.aabb();
+    if (!isFinite(box.l)) continue;
+    l = Math.min(l, box.l); r = Math.max(r, box.r);
+    t = Math.min(t, box.t); b = Math.max(b, box.b);
+  }
+  // 约束的固定锚点不是刚体，必须一起纳入取景，否则弹簧/绳子会被裁到屏幕外。
+  for (const c of constraints) {
+    const pa = anchorPos(c.a), pb = anchorPos(c.b);
+    l = Math.min(l, pa.x - 10, pb.x - 10);
+    r = Math.max(r, pa.x + 10, pb.x + 10);
+    t = Math.min(t, pa.y - 10, pb.y - 10);
+    b = Math.max(b, pa.y + 10, pb.y + 10);
+  }
+  for (const pair of pairs) {
+    const [pa, pb] = pairPoints(pair);
+    l = Math.min(l, pa.x - 12, pb.x - 12);
+    r = Math.max(r, pa.x + 12, pb.x + 12);
+    t = Math.min(t, pa.y - 12, pb.y - 12);
+    b = Math.max(b, pa.y + 12, pb.y + 12);
+  }
+  if (!isFinite(l)) return;
+  const pad = 54;
+  const bw = Math.max(90, r - l), bh = Math.max(90, b - t);
+  const z = clamp(Math.min((viewW - pad * 2) / bw, (viewH - pad * 2) / bh), 0.35, 1.15);
+  camera.zoom = z;
+  camera.x = (l + r) / 2 - viewW / (2 * z);
+  camera.y = (t + b) / 2 - viewH / (2 * z);
+  clampCamera();
+  updateZoomChip();
 }
 
 function zoomAt(clientX, clientY, factor) {
@@ -3123,13 +4021,18 @@ function drawConstraint(c) {
     ctx.beginPath(); ctx.moveTo(pa.x + px * 6, pa.y + py * 6); ctx.lineTo(pa.x - px * 6, pa.y - py * 6); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(pb.x + px * 6, pb.y + py * 6); ctx.lineTo(pb.x - px * 6, pb.y - py * 6); ctx.stroke();
   } else if (c.ctype === 'rope') {
-    const d = sub(pb, pa), len = hypot(d.x, d.y);
-    const slack = Math.max(0, c.rest - len);
-    const sag = Math.min(48, 6 + slack * .5);
-    const mx = (pa.x + pb.x) / 2, my = (pa.y + pb.y) / 2 + sag;
     ctx.strokeStyle = sel ? '#b94f2b' : '#8a7150';
     ctx.lineWidth = sel ? 2.2 : 1.7;
-    ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.quadraticCurveTo(mx, my, pb.x, pb.y); ctx.stroke();
+    if (c.pulley && bodies.includes(c.pulley)) {
+      const pp = c.pulley.pos;
+      ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.lineTo(pp.x, pp.y); ctx.lineTo(pb.x, pb.y); ctx.stroke();
+    } else {
+      const d = sub(pb, pa), len = hypot(d.x, d.y);
+      const slack = Math.max(0, c.rest - len);
+      const sag = Math.min(48, 6 + slack * .5);
+      const mx = (pa.x + pb.x) / 2, my = (pa.y + pb.y) / 2 + sag;
+      ctx.beginPath(); ctx.moveTo(pa.x, pa.y); ctx.quadraticCurveTo(mx, my, pb.x, pb.y); ctx.stroke();
+    }
     ctx.strokeStyle = 'rgba(255,246,225,.35)'; ctx.lineWidth = .8; ctx.stroke();
   } else if (c.ctype === 'gauge') {
     ctx.strokeStyle = sel ? '#b94f2b' : '#6d604b';
@@ -3890,7 +4793,6 @@ function skElectrical(b) {
   else if (k === 'capacitor') skCapacitor(b);
   else if (k === 'ammeter') skAmmeter(b);
   else skPolyBody(b);
-  skSketchPins(b);
 }
 
 function skSketchPins(b) {
@@ -4162,6 +5064,269 @@ function skGravityWell(b) {
   ctx.restore();
 }
 
+function skLaser(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 3); skStrokeFill('rgba(248,241,226,.85)');
+  skLine(-w / 2 + 5, -h * .26, -w / 2 + 5, h * .26, SK.soft, .8);
+  skCirclePath(w * .18, 0, 4); skFill(b.optic ? b.optic.color : SK.red); ctx.fill();
+  skText('LASER', -w * .14, h * .5 + 8, 6, SK.soft);
+}
+function skMirror(b) {
+  const w = b.halfW * 2;
+  skLine(-w / 2, 0, w / 2, 0, SK.ink, 2.2);
+  skLine(-w / 2, 3, w / 2, 3, 'rgba(78,111,138,.55)', .8);
+  for (let i = -3; i <= 3; i++) {
+    const x = i * w / 7;
+    skLine(x, -2, x - 5, -8, 'rgba(78,111,138,.55)', .7);
+  }
+  skText('镜', 0, 13, 6.5, SK.soft);
+}
+function skLens(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  ctx.beginPath();
+  ctx.moveTo(0, -h / 2);
+  ctx.quadraticCurveTo(w * .8, 0, 0, h / 2);
+  ctx.quadraticCurveTo(-w * .8, 0, 0, -h / 2);
+  skFill('rgba(158,191,205,.20)'); skPen('rgba(78,111,138,.75)', 1.2); ctx.stroke();
+  skLine(-w * .9, 0, -w / 2, 0, 'rgba(78,111,138,.45)', .8);
+  skLine(w / 2, 0, w * .9, 0, 'rgba(78,111,138,.45)', .8);
+}
+function skPrism(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  ctx.beginPath(); ctx.moveTo(-w / 2, h / 2); ctx.lineTo(w / 2, h / 2); ctx.lineTo(0, -h / 2); ctx.closePath();
+  skFill('rgba(230,235,225,.55)'); skPen('rgba(78,111,138,.75)', 1.3); ctx.stroke();
+  for (let i = 0; i < 3; i++) {
+    skLine(-w * .22, h * .24 - i * 5, w * .16 + i * 10, h * .05 - i * 7, ['#b5532f', '#9b7437', '#4e6f8a'][i], 1.1);
+  }
+}
+function skScreen(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 2); skStrokeFill('rgba(251,246,234,.9)');
+  for (let y = -h / 2 + 12; y < h / 2; y += 16) skLine(-w / 4, y, w / 4, y, 'rgba(130,72,22,.12)', .7);
+  skText('屏', 0, -h / 2 - 6, 6.5, SK.soft);
+}
+function skHeater(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  const hot = clamp((b.temperature - 293) / 120, 0, 1);
+  if (hot > .02) {
+    ctx.save(); ctx.globalAlpha = .10 + hot * .18; ctx.fillStyle = '#c24d32';
+    ctx.beginPath(); ctx.arc(0, 0, 38 + hot * 10, 0, TAU); ctx.fill(); ctx.restore();
+  }
+  rr(-w / 2, -h / 2, w, h, 4); skStrokeFill('rgba(249,238,222,.9)');
+  ctx.beginPath();
+  for (let i = 0; i < 4; i++) {
+    const x = -w * .32 + i * w * .21;
+    ctx.moveTo(x, -h * .26); ctx.bezierCurveTo(x + 8, -h * .05, x - 8, h * .05, x, h * .26);
+  }
+  skPen(hot > .2 ? 'rgba(181,83,47,.9)' : SK.soft, 1.2); ctx.stroke();
+  skText('热源', 0, h / 2 + 8, 6, SK.red);
+  skText(Math.round(b.temperature) + 'K', 0, h * .02, 6.5, SK.soft);
+}
+function skCooler(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 4); skStrokeFill('rgba(238,244,244,.9)');
+  ctx.save(); skPen('rgba(78,111,138,.8)', 1.1);
+  for (let i = 0; i < 3; i++) {
+    const a = i * Math.PI / 3;
+    skLine(Math.cos(a) * -14, Math.sin(a) * -14, Math.cos(a) * 14, Math.sin(a) * 14, 'rgba(78,111,138,.7)', 1);
+  }
+  ctx.restore();
+  skText('制冷', 0, h / 2 + 8, 6, SK.blue);
+  skText(Math.round(b.temperature) + 'K', 0, h * .02, 6.5, SK.soft);
+}
+function skThermometer(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 5); skStrokeFill('rgba(253,249,240,.9)');
+  skLine(0, -h * .34, 0, h * .16, 'rgba(78,111,138,.35)', 1.4);
+  skCirclePath(0, h * .26, 6); skFill('rgba(181,83,47,.65)'); skPen(SK.ink, 1); ctx.stroke();
+  const t = clamp((b.thermal ? b.thermal.reading : b.temperature) || 293, 120, 650);
+  const frac = clamp((t - 150) / 450, 0, 1);
+  const y = h * .16 - frac * h * .48;
+  skLine(0, h * .16, 0, y, '#b5532f', 2.2);
+  skText(Math.round(t) + 'K', 0, -h / 2 - 7, 6.5, SK.soft);
+}
+function skConductor(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  const hot = clamp((b.temperature - 293) / 160, 0, 1);
+  rr(-w / 2, -h / 2, w, h, h / 2);
+  ctx.fillStyle = hot > .05 ? `rgba(${190 + hot * 40 | 0},${130 - hot * 50 | 0},${80 - hot * 30 | 0},.55)` : 'rgba(205,190,160,.5)';
+  ctx.fill(); skPen('rgba(130,72,22,.5)', 1); ctx.stroke();
+  skText((b.temperature).toFixed(0) + 'K', 0, 2.8, 6.5, SK.ink);
+}
+function skInsulator(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 3); skStrokeFill('rgba(246,241,229,.9)');
+  for (let i = -2; i <= 2; i++) {
+    skCirclePath(i * w / 6, 0, 1.5); skFill('rgba(130,72,22,.30)'); ctx.fill();
+  }
+  skText('绝热', 0, -h / 2 - 6, 6, SK.soft);
+}
+function skCompass(b) {
+  const w = b.halfW * 2;
+  skCirclePath(0, 0, w / 2 - 2); skStrokeFill('rgba(251,247,236,.85)');
+  ctx.save(); skPen('rgba(130,72,22,.35)', .8);
+  for (let i = 0; i < 8; i++) {
+    const a = i * TAU / 8;
+    skLine(Math.cos(a) * (w / 2 - 7), Math.sin(a) * (w / 2 - 7), Math.cos(a) * (w / 2 - 3), Math.sin(a) * (w / 2 - 3), 'rgba(130,72,22,.35)', .8);
+  }
+  ctx.restore();
+  const needle = b.magtool ? b.magtool.needle : -Math.PI / 2;
+  skArrow(0, 0, Math.cos(needle) * (w / 2 - 8), Math.sin(needle) * (w / 2 - 8), SK.red, 1.5);
+  skArrow(0, 0, Math.cos(needle + Math.PI) * (w / 2 - 10), Math.sin(needle + Math.PI) * (w / 2 - 10), SK.blue, 1.2);
+  skText('N', Math.cos(-Math.PI / 2) * (w / 2 - 8), Math.sin(-Math.PI / 2) * (w / 2 - 8) - 4, 6, SK.soft);
+}
+function skGaussMeter(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 2); skStrokeFill('rgba(250,246,236,.9)');
+  skText('B', 0, -h * .16, 9, SK.ink);
+  const B = b.magtool ? b.magtool.B : 0;
+  skText(B.toFixed(2), 0, h * .16, 7.5, SK.red);
+  skText('T', w * .28, h * .17, 5.5, SK.soft);
+}
+function skHall(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 2); skStrokeFill('rgba(245,241,231,.9)');
+  skLine(-w / 2, 0, w / 2, 0, 'rgba(78,111,138,.5)', 1);
+  skText('VH', 0, -h * .18, 6.5, SK.ink);
+  skText((b.magtool ? b.magtool.V : 0).toFixed(2), 0, h * .28, 7, SK.blue);
+}
+function skShield(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 8);
+  ctx.setLineDash([5, 4]); skPen('rgba(78,111,138,.65)', 1.1); ctx.stroke(); ctx.setLineDash([]);
+  for (let i = -w / 2 + 10; i < w / 2; i += 18) skLine(i, -h / 2 + 4, i - 8, h / 2 - 4, 'rgba(78,111,138,.18)', .7);
+  skText('屏蔽', 0, h / 2 + 8, 6, SK.soft);
+}
+function skInduction(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 3); skStrokeFill('rgba(247,241,229,.85)');
+  ctx.beginPath();
+  for (let i = 0; i < 5; i++) {
+    const x = -w * .26 + i * w * .13;
+    ctx.moveTo(x, -h * .25);
+    ctx.bezierCurveTo(x - 9, -h * .1, x - 9, h * .1, x, h * .25);
+  }
+  skPen('rgba(155,116,55,.8)', 1.1); ctx.stroke();
+  const e = b.induction ? b.induction.emf : 0;
+  skText((e >= 0 ? '+' : '') + e.toFixed(2) + 'V', 0, h / 2 + 8, 6.5, SK.red);
+}
+function skNucleus(b) {
+  const pts = [[0, 0, 5], [-7, -4, 4], [7, -3, 4], [-5, 7, 3.5], [6, 6, 3.5], [0, -9, 3]];
+  for (const [x, y, r] of pts) {
+    skCirclePath(x, y, r);
+    ctx.fillStyle = 'rgba(181,83,47,.13)'; ctx.fill();
+    skPen('rgba(181,83,47,.7)', .9); ctx.stroke();
+  }
+  skText('+', 0, 0, 9, SK.red);
+}
+function skElectron(b) {
+  const r = b.r || 7;
+  skCirclePath(0, 0, r); skFill('rgba(78,111,138,.25)'); skPen(SK.blue, 1); ctx.stroke();
+  skText('−', 0, .5, 7, SK.blue);
+}
+function skAlphaSource(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 3); skStrokeFill('rgba(246,240,229,.9)');
+  skCirclePath(-w * .18, 0, 6); skFill('rgba(181,83,47,.18)'); skPen(SK.red, 1); ctx.stroke();
+  skText('α', -w * .18, 1, 8, SK.red);
+  skArrow(w * .02, 0, w * .40, 0, SK.red, 1.2, [3, 2]);
+}
+function skCloud(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 5);
+  ctx.setLineDash([4, 4]); skPen('rgba(78,111,138,.45)', 1); ctx.stroke(); ctx.setLineDash([]);
+  if (b.atomic && b.atomic.tracks) {
+    for (const tr of b.atomic.tracks) {
+      const q = rotInv(tr.x - b.pos.x, tr.y - b.pos.y, b.angle);
+      ctx.save();
+      ctx.globalAlpha = clamp(1 - tr.age / 6, 0, .75);
+      ctx.fillStyle = tr.type === 'alpha' ? 'rgba(181,83,47,.75)' : 'rgba(78,111,138,.7)';
+      ctx.beginPath(); ctx.arc(q.x, q.y, tr.type === 'alpha' ? 1.9 : 1.4, 0, TAU); ctx.fill();
+      ctx.restore();
+    }
+  }
+  skText('云室', 0, -h / 2 - 7, 6.5, SK.soft);
+}
+function skPhotoPlate(b) {
+  const w = b.halfW * 2, h = b.halfH * 2;
+  rr(-w / 2, -h / 2, w, h, 2); skStrokeFill('rgba(245,240,229,.95)');
+  for (let y = -h / 2 + 10; y < h / 2; y += 14) skLine(-w / 4, y, w / 4, y, 'rgba(78,111,138,.25)', .7);
+  if (b.atomic && b.atomic.glow > 0) {
+    ctx.save(); ctx.globalAlpha = b.atomic.glow * .35; ctx.fillStyle = '#d26a3c';
+    ctx.beginPath(); ctx.arc(0, 0, 18, 0, TAU); ctx.fill(); ctx.restore();
+  }
+  skText('光电', 0, h / 2 + 8, 6, SK.soft);
+}
+
+const EXPAND_TYPES = new Set(['cart','wheel','windmill','pulley','lever','voltmeter','fuse','diode','rheostat','motor','helmholtz','amperewire','maglev','ironfilings','currentbalance','beamsplitter','concave','polarizer','filter','grating','thermocouple','radiator','phasechange','expansion','calorimeter','betasource','gammasource','geiger','electrongun','massspec']);
+function skGadget(b) {
+  const w = b.halfW * 2, h = b.halfH * 2, t = b.type;
+  if (t === 'wheel') {
+    skCirclePath(0, 0, b.r || 27); skStrokeFill('rgba(238,226,205,.65)');
+    for (let i = 0; i < 6; i++) {
+      const a = i * TAU / 6 + (b.mech ? b.mech.spin || 0 : 0);
+      skLine(0, 0, Math.cos(a) * (b.r - 4), Math.sin(a) * (b.r - 4), SK.ink, .8);
+    }
+    skCirclePath(0, 0, 5); skFill(SK.paper); ctx.stroke(); return;
+  }
+  if (t === 'pulley') {
+    skCirclePath(0, 0, b.r || 24); skStrokeFill('rgba(245,234,214,.8)');
+    skCirclePath(0, 0, 4); skFill(SK.ink); ctx.fill();
+    skLine(-w / 2, 0, w / 2, 0, SK.brass, 1.2); return;
+  }
+  if (t === 'cart') {
+    rr(-w / 2, -h * .28, w, h * .55, 4); skStrokeFill('rgba(236,220,193,.75)');
+    for (const x of [-w * .28, w * .28]) { skCirclePath(x, h * .38, 7); skStrokeFill(SK.paper); }
+    skArrow(0, 0, w * .32, 0, SK.red, 1.2); skText('小车', 0, -h * .46, 6, SK.soft); return;
+  }
+  if (t === 'windmill') {
+    rr(-w / 2, -h / 2, w, h, 3); skStrokeFill('rgba(232,216,190,.8)');
+    const a = b.mech ? b.mech.blade || 0 : 0;
+    for (let i = 0; i < 4; i++) {
+      const q = a + i * Math.PI / 2;
+      skLine(0, -h * .28, Math.cos(q) * w * 1.4, -h * .28 + Math.sin(q) * w * 1.4, SK.ink, 1.1);
+    }
+    skCirclePath(0, -h * .28, 3); skFill(SK.ink); ctx.fill(); return;
+  }
+  if (t === 'lever') {
+    skLine(-w / 2, 0, w / 2, 0, SK.ink, 2.2);
+    skLine(-w * .08, -h * .9, -w * .08, -h * .2, SK.soft, .8);
+    skLine(w * .08, -h * .9, w * .08, -h * .2, SK.soft, .8);
+    skCirclePath(0, 0, 3.4); skFill(SK.ink); ctx.fill();
+    ctx.save(); ctx.rotate(-b.angle);
+    ctx.beginPath(); ctx.moveTo(-22, 5); ctx.lineTo(22, 5); ctx.lineTo(0, 43); ctx.closePath();
+    skStrokeFill('rgba(236,220,193,.72)');
+    skText('支点', 0, 56, 5.5, SK.soft);
+    ctx.restore();
+    return;
+  }
+  rr(-w / 2, -h / 2, w, h, 4); skStrokeFill('rgba(251,247,237,.85)');
+  if (t === 'voltmeter') { skText('V', 0, -h * .10, 10, SK.blue); skText((b.circuitState ? b.circuitState.voltage : 0).toFixed(1) + 'V', 0, h * .26, 6, SK.blue); }
+  else if (t === 'fuse') { skLine(-w * .3, 0, w * .3, 0, b.electrical && b.electrical.blown ? SK.red : SK.ink, 1.6); skText(b.electrical && b.electrical.blown ? '断' : '保险', 0, -h / 2 - 5, 5.5, SK.soft); }
+  else if (t === 'diode') { skLine(-w / 2, 0, -w * .12, 0, SK.ink, 1.2); ctx.beginPath(); ctx.moveTo(-w * .12, -h * .3); ctx.lineTo(-w * .12, h * .3); ctx.lineTo(w * .16, 0); ctx.closePath(); skFill('rgba(181,83,47,.20)'); ctx.stroke(); skLine(w * .16, -h * .3, w * .16, h * .3, SK.ink, 1.4); skLine(w / 2, 0, w * .16, 0, SK.ink, 1.2); }
+  else if (t === 'rheostat') { const p = b.rheostatPos == null ? .5 : b.rheostatPos; skLine(-w / 2, h * .2, w / 2, h * .2, SK.ink, 1.2); for (let i = -3; i <= 3; i++) skLine(i * w / 8, h * .2, i * w / 8 + 5, h * .2 - 9, SK.red, .9); const kx = -w * .35 + p * w * .7; skLine(kx, -h * .02, kx, h * .12, SK.blue, 1.6); skCirclePath(kx, -h * .10, 4); skFill(SK.paper); ctx.stroke(); skText((b.electrical ? b.electrical.R : 0).toFixed(1) + 'Ω', 0, h * .48, 5.5, SK.blue); }
+  else if (t === 'motor') { skCirclePath(0, -h * .06, Math.min(w, h) * .34); skStrokeFill('rgba(241,228,202,.7)'); skText('M', 0, -h * .04, 10, SK.red); skLine(-w * .3, h * .32, w * .3, h * .32, SK.ink, 1); }
+  else if (t === 'helmholtz') { for (const y of [-h * .28, h * .28]) { ctx.beginPath(); ctx.ellipse(0, y, w * .34, h * .13, 0, 0, TAU); skPen(SK.blue, 1.2); ctx.stroke(); } skLine(-w * .34, -h * .28, -w * .34, h * .28, 'rgba(78,111,138,.40)', .8); skLine(w * .34, -h * .28, w * .34, h * .28, 'rgba(78,111,138,.40)', .8); skText('B', 0, 1, 7, SK.blue); }
+  else if (t === 'amperewire') { skLine(-w / 2, 0, w / 2, 0, SK.brass, 2.4); skArrow(0, 0, 0, -h * .45, SK.red, 1.3); skText('F', w * .18, -h * .30, 6.5, SK.red); }
+  else if (t === 'maglev') { rr(-w / 2, -h / 2, w, h, 4); skStrokeFill('rgba(215,201,232,.55)'); skArrow(-w * .22, h * .2, -w * .22, -h * .7, SK.blue, 1.2); skArrow(w * .22, h * .2, w * .22, -h * .7, SK.blue, 1.2); skText('悬浮', 0, h / 2 + 7, 5.5, SK.soft); }
+  else if (t === 'ironfilings') { ctx.setLineDash([3, 4]); for (let i = 0; i < 4; i++) { const y = -h * .28 + i * h * .18; ctx.beginPath(); ctx.moveTo(-w * .38, y); ctx.bezierCurveTo(-w * .1, y - 12, w * .1, y + 12, w * .38, y); ctx.stroke(); } ctx.setLineDash([]); skText('铁屑', 0, -h / 2 - 6, 5.5, SK.soft); }
+  else if (t === 'currentbalance') { skLine(-w * .4, -h * .2, w * .4, -h * .2, SK.ink, 2); skLine(0, -h * .2, 0, h * .2, SK.ink, 1); skLine(-w * .26, h * .2, w * .26, h * .2, SK.ink, 1.6); skText('F', 0, -h * .3, 6, SK.red); }
+  else if (t === 'beamsplitter') { skLine(-w / 2, h / 2, w / 2, -h / 2, SK.ink, 2); skLine(-w * .24, 0, w * .24, 0, SK.red, 1); skLine(0, 0, 0, h / 2, SK.blue, 1); }
+  else if (t === 'concave') { ctx.beginPath(); ctx.arc(w * 1.1, 0, w * 1.15, Math.PI * .62, Math.PI * 1.38); skPen(SK.ink, 2); ctx.stroke(); skText('凹', 0, -h / 2 - 5, 5.5, SK.soft); }
+  else if (t === 'polarizer') { for (let i = -3; i <= 3; i++) skLine(i * w / 7, -h / 2, i * w / 7, h / 2, SK.blue, .9); skText('偏振', 0, -h / 2 - 5, 5.5, SK.soft); }
+  else if (t === 'filter') { ctx.fillStyle = 'rgba(87,156,116,.20)'; ctx.fillRect(-w / 2, -h / 2, w, h); for (let i = -2; i <= 2; i++) skLine(-w / 2, i * h / 5, w / 2, i * h / 5, 'rgba(70,125,95,.45)', .8); skText('532', 0, h / 2 + 6, 5, SK.soft); }
+  else if (t === 'grating') { for (let i = -3; i <= 3; i++) skLine(i * w / 7, -h / 2, i * w / 7, h / 2, SK.ink, .8); for (let k = -2; k <= 2; k++) skLine(w / 2, 0, w / 2 + 24, k * 16, ['#b5532f', '#c78a3f', '#4e6f8a', '#6a5f9b', '#b5532f'][k + 2], .8); }
+  else if (t === 'thermocouple') { skLine(-w / 2, 0, 0, 0, SK.red, 1.4); skLine(0, 0, w / 2, 0, SK.blue, 1.4); skText('ΔT', 0, -h * .28, 5.5, SK.soft); skText((b.electrical ? Math.abs(b.electrical.voltage) : 0).toFixed(2) + 'V', 0, h * .28, 5, SK.red); }
+  else if (t === 'radiator') { for (let i = -4; i <= 4; i++) skLine(i * w / 10, -h / 2, i * w / 10, h / 2, SK.blue, 1); skLine(-w / 2, 0, w / 2, 0, 'rgba(78,111,138,.5)', 1); }
+  else if (t === 'phasechange') { const melt = b.thermal ? b.thermal.melt || 0 : 0; ctx.fillStyle = `rgba(126,174,193,${.18 + melt * .35})`; ctx.fillRect(-w / 2, -h / 2 + h * melt, w, h * (1 - melt)); skText(melt >= 1 ? '液态' : '273K', 0, 2, 5.5, SK.blue); }
+  else if (t === 'expansion') { const sc = b.thermal ? 1 + clamp((b.temperature - 293) * .0018, -.2, .35) : 1; skLine(-w * sc / 2, 0, w * sc / 2, 0, SK.ink, 2.4); skArrow(w * .3, -h * .5, w * .3, -h * 1.1, SK.red, 1); skText(Math.round(b.temperature) + 'K', 0, -h * .8, 5.5, SK.soft); }
+  else if (t === 'calorimeter') { skCirclePath(0, 0, b.r); skStrokeFill('rgba(238,244,244,.5)'); skLine(-b.r * .55, -b.r * .2, b.r * .55, -b.r * .2, SK.blue, 1.4); skText('Q=' + ((b.thermal ? b.thermal.Q : 0) / 1000).toFixed(1), 0, b.r * .4, 5.5, SK.soft); }
+  else if (t === 'betasource' || t === 'gammasource' || t === 'alphasource') { const label = t === 'betasource' ? 'β' : t === 'gammasource' ? 'γ' : 'α'; skCirclePath(-w * .2, 0, 8); skFill('rgba(181,83,47,.15)'); ctx.stroke(); skText(label, -w * .2, 3, 9, SK.red); skArrow(w * .05, 0, w * .42, 0, SK.red, 1.2, [3, 2]); }
+  else if (t === 'geiger') { rr(-w / 2, -h / 2, w, h, 4); skStrokeFill('rgba(246,240,229,.8)'); skText(String(b.atomic ? b.atomic.count || 0 : 0), 0, 0, 12, SK.red); skText('γ 计数', 0, -h / 2 - 5, 5, SK.soft); }
+  else if (t === 'electrongun') { rr(-w / 2, -h / 2, w * .55, h, 4); skStrokeFill('rgba(238,244,244,.7)'); skText('e⁻', -w * .1, 3, 8, SK.blue); skLine(w * .08, 0, w * .45, 0, SK.blue, 1.4); }
+  else if (t === 'massspec') { rr(-w / 2, -h / 2, w, h, 5); skStrokeFill('rgba(250,246,236,.45)'); ctx.beginPath(); ctx.arc(-w * .1, h * .3, w * .38, -Math.PI * .85, -Math.PI * .15); skPen(SK.blue, 1.2); ctx.stroke(); skText('r=' + ((b.atomic ? b.atomic.radius : 0) / PPM).toFixed(2) + 'm', 0, -h / 2 + 12, 5.5, SK.soft); }
+  skText(b.name, 0, h / 2 + 8, 5.5, SK.soft);
+}
 function drawSketchBody(b) {
   ctx.save();
   ctx.translate(b.pos.x, b.pos.y);
@@ -4196,8 +5361,30 @@ function drawSketchBody(b) {
   else if (b.type === 'qubit') skQubit(b);
   else if (b.type === 'qsource') skQSource(b);
   else if (b.type === 'led') skLed(b);
+  else if (b.type === 'laser') skLaser(b);
+  else if (b.type === 'mirror') skMirror(b);
+  else if (b.type === 'lens') skLens(b);
+  else if (b.type === 'prism') skPrism(b);
+  else if (b.type === 'screen') skScreen(b);
+  else if (b.type === 'heater') skHeater(b);
+  else if (b.type === 'cooler') skCooler(b);
+  else if (b.type === 'thermometer') skThermometer(b);
+  else if (b.type === 'conductor') skConductor(b);
+  else if (b.type === 'insulator') skInsulator(b);
+  else if (b.type === 'compass') skCompass(b);
+  else if (b.type === 'gaussmeter') skGaussMeter(b);
+  else if (b.type === 'hall') skHall(b);
+  else if (b.type === 'shield') skShield(b);
+  else if (b.type === 'induction') skInduction(b);
+  else if (b.type === 'nucleus') skNucleus(b);
+  else if (b.type === 'electron') skElectron(b);
+  else if (b.type === 'alphasource') skAlphaSource(b);
+  else if (b.type === 'cloud') skCloud(b);
+  else if (b.type === 'photoplate') skPhotoPlate(b);
+  else if (EXPAND_TYPES.has(b.type)) skGadget(b);
   else if (b.electrical) skElectrical(b);
   else skPolyBody(b);
+  if (b.pins) skSketchPins(b);
   skFixedMark(b);
   skSelection(b);
   ctx.restore();
@@ -4336,6 +5523,34 @@ function drawDebugValuesCompact() {
       else if (b.thruster) lines.push('推力 ' + b.thruster.thrust.toFixed(0) + ' N');
     }
     if (b.solenoid || b.coil) lines.push('线圈 I ' + Math.abs((b.electrical && b.electrical.current) || 0).toFixed(2) + ' A');
+    if (b.thermal) lines.push('T ' + fmt(b.temperature == null ? 293 : b.temperature, 0) + ' K');
+    if (b.magtool) {
+      if (b.magtool.kind === 'compass') lines.push('B ' + fmt(b.magtool.B, 3) + ' T');
+      else if (b.magtool.kind === 'gauss') lines.push('B ' + fmt(b.magtool.B, 4) + ' T');
+      else if (b.magtool.kind === 'hall') lines.push('U_H ' + fmt(b.magtool.V, 4) + ' V');
+    }
+    if (b.induction) lines.push('ε ' + fmt(b.induction.emf, 2) + ' V');
+    if (b.atomic && b.atomic.kind === 'photo') lines.push('hits ' + b.atomic.hits);
+    if (b.atomic && b.atomic.kind === 'cloud') lines.push('轨迹 ' + (b.atomic.tracks ? b.atomic.tracks.length : 0));
+    if (b.mech) {
+      if (b.mech.kind === 'cart') lines.push('车速 ' + fmt(b.mech.speed || 0, 1) + ' m/s');
+      else if (b.mech.kind === 'windmill') lines.push('叶片 ' + fmt(b.mech.blade || 0, 1) + ' rad');
+    }
+    if (b.magdevice) {
+      if (b.magdevice.kind === 'ampere') lines.push('F ' + fmt(b.magdevice.F || 0, 2) + ' N');
+      else if (b.magdevice.kind === 'maglev') lines.push('升力 ' + fmt(b.magdevice.lift || 0, 1) + ' N');
+      else if (b.magdevice.kind === 'balance') lines.push('F ' + fmt(b.magdevice.F || 0, 3) + ' N');
+      else if (b.magdevice.kind === 'helmholtz') lines.push('B ' + fmt(b.magdevice.B || .8, 2) + ' T');
+    }
+    if (b.thermal) {
+      if (b.thermal.kind === 'phaseChange') lines.push('熔化 ' + Math.round((b.thermal.melt || 0) * 100) + '%');
+      if (b.thermal.kind === 'calorimeter') lines.push('Q ' + fmt((b.thermal.Q || 0) / 1000, 2) + ' kJ');
+      if (b.thermal.kind === 'thermocouple' && b.electrical) lines.push('ε ' + fmt(b.electrical.voltage || 0, 2) + ' V');
+    }
+    if (b.atomic && b.atomic.kind === 'geiger') lines.push('计数 ' + (b.atomic.count || 0));
+    if (b.atomic && b.atomic.kind === 'massSpec') lines.push('r ' + fmt((b.atomic.radius || 0) / PPM, 2) + ' m');
+    if (b.electrical && b.electrical.kind === 'motor') lines.push('转速 ' + fmt(b.electrical.speed || 0, 0));
+    if (b.electrical && b.electrical.kind === 'fuse' && b.electrical.blown) lines.push('已熔断');
     ctx.save();
     ctx.font = '9px "Cascadia Mono", Consolas, monospace';
     let tw = 0;
@@ -4388,6 +5603,180 @@ function drawMarquee() {
   ctx.restore();
 }
 
+/* ---------- 光学追迹 ---------- */
+function rayPolyHit(ox, oy, dx, dy, b, maxT = 2200) {
+  const vs = b._wv || [];
+  let best = null;
+  for (let i = 0; i < vs.length; i++) {
+    const a = vs[i], c = vs[(i + 1) % vs.length];
+    const sx = c.x - a.x, sy = c.y - a.y;
+    const den = dx * sy - dy * sx;
+    if (Math.abs(den) < 1e-8) continue;
+    const qx = a.x - ox, qy = a.y - oy;
+    const t = (qx * sy - qy * sx) / den;
+    const u = (qx * dy - qy * dx) / den;
+    if (t <= .2 || t > maxT || u < 0 || u > 1) continue;
+    if (!best || t < best.t) {
+      let nx = sy, ny = -sx;
+      const nl = hypot(nx, ny) || 1;
+      nx /= nl; ny /= nl;
+      if (nx * dx + ny * dy > 0) { nx = -nx; ny = -ny; }
+      best = { t, x: ox + dx * t, y: oy + dy * t, nx, ny, body: b };
+    }
+  }
+  return best;
+}
+function traceOptics() {
+  opticalPaths = [];
+  for (const b of bodies) {
+    if (b.optic && b.optic.kind === 'screen') b.optic.hits = [];
+    if (b.atomic && b.atomic.kind === 'photo') b.atomic.hitFlash = 0;
+  }
+  for (const src of bodies) {
+    if (!src.optic || src.optic.kind !== 'laser') continue;
+    let ox = src.pos.x + Math.cos(src.angle) * (src.halfW + 3);
+    let oy = src.pos.y + Math.sin(src.angle) * (src.halfW + 3);
+    let dx = Math.cos(src.angle), dy = Math.sin(src.angle);
+    const baseColor = src.optic.color || '#c24d32';
+    const lambda = src.optic.wavelength || 632;
+    let beamAlpha = 1;
+    for (let bounce = 0; bounce < 8; bounce++) {
+      let best = null;
+      for (const b of bodies) {
+        if (b === src) continue;
+        if (!b.optic && !(b.atomic && b.atomic.kind === 'photo')) continue;
+        const hit = rayPolyHit(ox, oy, dx, dy, b);
+        if (hit && (!best || hit.t < best.t)) best = hit;
+      }
+      if (!best) {
+        opticalPaths.push({ points: [{ x: ox, y: oy }, { x: ox + dx * 1200, y: oy + dy * 1200 }], color: baseColor, width: 2, alpha: beamAlpha });
+        break;
+      }
+      opticalPaths.push({ points: [{ x: ox, y: oy }, { x: best.x, y: best.y }], color: baseColor, width: 2, alpha: beamAlpha });
+      const k = best.body.optic ? best.body.optic.kind : (best.body.atomic && best.body.atomic.kind === 'photo' ? 'photo' : null);
+      if (k === 'mirror') {
+        const dotv = dx * best.nx + dy * best.ny;
+        dx -= 2 * dotv * best.nx; dy -= 2 * dotv * best.ny;
+        ox = best.x + best.nx * .8; oy = best.y + best.ny * .8;
+      } else if (k === 'lens') {
+        const ax = Math.cos(best.body.angle), ay = Math.sin(best.body.angle);
+        const side = Math.sign(dx * ax + dy * ay) || 1;
+        const f = best.body.optic.focal || 150;
+        const tx = best.body.pos.x + ax * side * f;
+        const ty = best.body.pos.y + ay * side * f;
+        const ddx = tx - best.x, ddy = ty - best.y;
+        const dl = hypot(ddx, ddy) || 1;
+        dx = ddx / dl; dy = ddy / dl;
+        ox = best.x + dx * .8; oy = best.y + dy * .8;
+      } else if (k === 'prism') {
+        const ang = (best.body.optic.dispersion || 1) * .14;
+        for (let s = -1; s <= 1; s += 2) {
+          const ca = Math.cos(ang * s), sa = Math.sin(ang * s);
+          opticalPaths.push({ points: [{ x: best.x, y: best.y }, { x: best.x + (dx * ca - dy * sa) * 280, y: best.y + (dx * sa + dy * ca) * 280 }], color: s < 0 ? '#5c7fa5' : '#c78a3f', width: 1.5 });
+        }
+        const ndx = dx * Math.cos(.035) - dy * Math.sin(.035);
+        const ndy = dx * Math.sin(.035) + dy * Math.cos(.035);
+        dx = ndx; dy = ndy;
+        ox = best.x + dx * .8; oy = best.y + dy * .8;
+      } else if (k === 'splitter') {
+        const dotv = dx * best.nx + dy * best.ny;
+        const rx = dx - 2 * dotv * best.nx, ry = dy - 2 * dotv * best.ny;
+        opticalPaths.push({ points: [{ x: best.x, y: best.y }, { x: best.x + rx * 320, y: best.y + ry * 320 }], color: baseColor, width: 1.6, alpha: beamAlpha * .55 });
+        beamAlpha *= .55;
+        ox = best.x + dx * .8; oy = best.y + dy * .8;
+      } else if (k === 'concave') {
+        const ax = Math.cos(best.body.angle), ay = Math.sin(best.body.angle);
+        const side = Math.sign(dx * ax + dy * ay) || 1;
+        const f = best.body.optic.focal || 130;
+        const tx = best.body.pos.x - ax * side * f;
+        const ty = best.body.pos.y - ay * side * f;
+        const ddx = tx - best.x, ddy = ty - best.y;
+        const dl = hypot(ddx, ddy) || 1;
+        dx = ddx / dl; dy = ddy / dl;
+        ox = best.x + dx * .8; oy = best.y + dy * .8;
+      } else if (k === 'polarizer') {
+        beamAlpha *= .42;
+        ox = best.x + dx * .8; oy = best.y + dy * .8;
+      } else if (k === 'filter') {
+        if (Math.abs(lambda - (best.body.optic.wavelength || 532)) > 70) break;
+        ox = best.x + dx * .8; oy = best.y + dy * .8;
+      } else if (k === 'grating') {
+        const baseAng = Math.atan2(dy, dx);
+        for (let order = -2; order <= 2; order++) {
+          const a2 = baseAng + order * .13;
+          opticalPaths.push({ points: [{ x: best.x, y: best.y }, { x: best.x + Math.cos(a2) * 320, y: best.y + Math.sin(a2) * 320 }], color: order === 0 ? baseColor : ['#5c7fa5', '#c78a3f', '#6a5f9b', '#2f7a72'][Math.abs(order) - 1], width: order === 0 ? 2 : 1.4, alpha: beamAlpha * (order === 0 ? 1 : .6) });
+        }
+        break;
+      } else if (k === 'screen') {
+        best.body.optic.hits.push({ x: best.x, y: best.y, color: baseColor });
+        break;
+      } else if (k === 'photo') {
+        if (!(best.body.atomic.hitCooldown > 0)) {
+          best.body.atomic.hits++;
+          best.body.atomic.hitCooldown = .25;
+        }
+        best.body.atomic.glow = 1;
+        best.body.atomic.hitFlash = 1;
+        break;
+      } else break;
+    }
+  }
+}
+function drawOptics() {
+  traceOptics();
+  ctx.save();
+  ctx.globalCompositeOperation = 'lighter';
+  for (const p of opticalPaths) {
+    const a = p.points[0], b = p.points[p.points.length - 1];
+    ctx.strokeStyle = p.color;
+    ctx.globalAlpha = .13 * (p.alpha == null ? 1 : p.alpha);
+    ctx.lineWidth = 7;
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.globalAlpha = .82 * (p.alpha == null ? 1 : p.alpha);
+    ctx.lineWidth = p.width || 1.8;
+    ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    ctx.globalCompositeOperation = 'lighter';
+  }
+  for (const b of bodies) {
+    if (b.optic && b.optic.kind === 'screen' && b.optic.hits.length) {
+      for (const h of b.optic.hits) {
+        ctx.globalAlpha = .9;
+        ctx.fillStyle = h.color;
+        ctx.beginPath(); ctx.arc(h.x, h.y, 3.2, 0, TAU); ctx.fill();
+        ctx.globalAlpha = .18;
+        ctx.beginPath(); ctx.arc(h.x, h.y, 8, 0, TAU); ctx.fill();
+      }
+    }
+    if (b.atomic && b.atomic.kind === 'photo' && b.atomic.hitFlash > 0) {
+      ctx.globalAlpha = .7;
+      ctx.fillStyle = '#d26a3c';
+      ctx.beginPath(); ctx.arc(b.pos.x, b.pos.y, 14, 0, TAU); ctx.fill();
+    }
+  }
+  ctx.restore();
+}
+
+function drawAtomicParticles() {
+  ctx.save();
+  for (const p of atomicParticles) {
+    if (p.trail.length > 1) {
+      ctx.strokeStyle = p.type === 'alpha' ? 'rgba(181,83,47,.55)' : p.type === 'beta' ? 'rgba(47,122,114,.55)' : p.type === 'gamma' ? 'rgba(199,138,63,.55)' : 'rgba(78,111,138,.55)';
+      ctx.lineWidth = 1.1;
+      ctx.beginPath();
+      ctx.moveTo(p.trail[0].x, p.trail[0].y);
+      for (let i = 1; i < p.trail.length; i++) ctx.lineTo(p.trail[i].x, p.trail[i].y);
+      ctx.stroke();
+    }
+    ctx.fillStyle = p.type === 'alpha' ? '#b5532f' : p.type === 'beta' ? '#2f7a72' : p.type === 'gamma' ? '#c78a3f' : '#4e6f8a';
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.type === 'alpha' ? 2.4 : 1.8, 0, TAU); ctx.fill();
+    ctx.globalAlpha = .2;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.type === 'alpha' ? 7 : 5, 0, TAU); ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+}
+
 function render() {
   ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
   ctx.clearRect(0, 0, viewW, viewH);
@@ -4407,6 +5796,8 @@ function render() {
   const sorted = bodies.slice().sort((a, b) => (a.static ? 0 : 1) - (b.static ? 0 : 1));
   for (const b of sorted) drawSketchBody(b);
 
+  drawAtomicParticles();
+  drawOptics();
   drawEffects();
   drawVectors();
   drawConnectorPreview();
@@ -4487,30 +5878,68 @@ function setEnv(key) {
   showHint(`${E.desc} <b>g = ${E.g.toFixed(2)} m/s²</b>`, 3600);
 }
 
+const PALETTE_GROUPS = [
+  { cat: 'mech', label: '力学', color: '#a9773f' },
+  { cat: 'elec', label: '电学', color: '#4e7896' },
+  { cat: 'mag', label: '磁学', color: '#725a9b' },
+  { cat: 'optics', label: '光学', color: '#3a8a80' },
+  { cat: 'thermo', label: '热学', color: '#bf5a43' },
+  { cat: 'atomic', label: '原子', color: '#6663ad' }
+];
 function renderPalette() {
-  el.paletteList.innerHTML = COMPONENT_ORDER.map(type => {
-    const d = COMPONENTS[type];
-    return `<button class="palette-item" data-type="${type}" data-cat="${d.cat}" title="${d.name} · ${d.note}">
-      <span class="icon-box">${ICONS[d.icon] || ICONS.ball}</span>
-      <span class="lbl">${d.name}</span>
-    </button>`;
-  }).join('');
+  const grouped = paletteFilter === 'all';
+  const parts = [];
+  for (const g of PALETTE_GROUPS) {
+    const types = COMPONENT_ORDER.filter(type => COMPONENTS[type].cat === g.cat);
+    if (!types.length) continue;
+    if (grouped) {
+      parts.push(`<div class="palette-sep" data-sep="${g.cat}">
+        <span class="dot" style="background:${g.color}"></span>
+        <span>${g.label}</span><span class="line"></span><span class="count">${types.length}</span>
+      </div>`);
+    }
+    for (const type of types) {
+      const d = COMPONENTS[type];
+      parts.push(`<button class="palette-item" data-type="${type}" data-cat="${d.cat}" title="${d.name}：${componentDescription(type)}">
+        <span class="icon-box">${ICONS[d.icon] || ICONS.ball}</span>
+        <span class="lbl">${d.name}</span>
+      </button>`);
+    }
+  }
+  el.paletteList.innerHTML = parts.join('');
   el.componentCount.textContent = COMPONENT_ORDER.length + ' 种';
   el.paletteList.querySelectorAll('.palette-item').forEach(item => {
     item.addEventListener('pointerdown', onPalettePointerDown);
     item.addEventListener('click', (e) => {
-      if (paletteDrag && paletteDrag.moved) return;
+      if (performance.now() - paletteDraggedAt < 260) return;
       armPalette(item.dataset.type);
+      // 手机上点选后自动收起抽屉，直接点画布放置。
+      if (isMobileLayout() && pendingType) {
+        setTimeout(() => document.body.classList.remove('palette-open'), 120);
+      }
     });
   });
 }
 function updatePaletteUI() {
+  el.paletteList.querySelectorAll('.palette-sep').forEach(sep => {
+    sep.style.display = paletteFilter === 'all' ? '' : 'none';
+  });
   el.paletteList.querySelectorAll('.palette-item').forEach(item => {
     const show = paletteFilter === 'all' || item.dataset.cat === paletteFilter;
     item.style.display = show ? '' : 'none';
     item.classList.toggle('active', item.dataset.type === pendingType);
   });
 }
+function startPulleyThread(b) {
+  if (pendingType === 'rope' && pendingPulley === b) { cancelPending(); return; }
+  armPalette('rope');
+  pendingPulley = b;
+  selection = { kind: 'body', body: b };
+  closeContextMenu();
+  showHint('滑轮穿绳：依次点击绳子两端（物体或空白处）· 右键/长按取消', 7000);
+  toast('已准备穿绳 · 选择绳子两端', true);
+}
+
 function armPalette(type) {
   const d = COMPONENTS[type];
   if (!d) return;
@@ -4519,17 +5948,19 @@ function armPalette(type) {
     return;
   }
   pendingType = type;
+  if (type !== 'rope') pendingPulley = null;
   wireMode = type === 'wire';
   connector = null;
   wireStart = null;
+  linkDrag = null;
   updatePaletteUI();
   const shell = el.stageShell;
   shell.classList.remove('is-grabbing', 'is-connecting', 'is-wiring');
   if (type === 'wire') shell.classList.add('is-wiring');
   else if (d.kind === 'link') shell.classList.add('is-connecting');
   else shell.classList.add('is-placing');
-  if (d.kind === 'link') showHint(`已选择 <b>${d.name}</b> · 在画布上依次点击两个锚点`, 5000);
-  else if (type === 'wire') showHint('已选择 <b>铜线</b> · 先点一个接线柱，再点另一个', 5000);
+  if (d.kind === 'link') showHint(`已选择 <b>${d.name}</b> · 拖动首尾，或依次点击两个锚点 · 右键/长按取消`, 6000);
+  else if (type === 'wire') showHint('已选择 <b>铜线</b> · 拖动首尾，或依次点击两个接线柱 · 右键/长按取消', 6000);
   else if (type === 'entangle') showHint('点击画布放置一对<b>纠缠粒子</b>', 4000);
   else showHint(`已选择 <b>${d.name}</b> · 点击画布放置（也可直接拖入）`, 4000);
   refreshInspector();
@@ -4538,11 +5969,24 @@ function cancelPending() {
   pendingType = null;
   wireMode = false;
   wireStart = null;
+  linkDrag = null;
+  pendingPulley = null;
   connector = null;
   el.stageShell.classList.remove('is-placing', 'is-wiring', 'is-connecting');
   el.dragGhost.style.display = 'none';
   updatePaletteUI();
   refreshInspector();
+}
+function isLinkPending() {
+  const d = pendingType ? COMPONENTS[pendingType] : null;
+  return !!((d && (d.kind === 'link' || pendingType === 'wire')) || wireStart || connector);
+}
+function cancelLinkState() {
+  if (!isLinkPending()) return false;
+  cancelPending();
+  closeContextMenu();
+  toast('已取消连线状态 · 可重新选择线类元件', true);
+  return true;
 }
 function onPalettePointerDown(e) {
   if (e.button != null && e.button !== 0) return;
@@ -4576,9 +6020,11 @@ function onPalettePointerDown(e) {
     const wasMoved = paletteDrag.moved;
     const type = paletteDrag.type;
     if (wasMoved) {
+      paletteDraggedAt = performance.now();
       const p = clientToWorld(ev);
       if (p.x > 0 && p.y > 0 && p.x < W && p.y < H) {
         placeComponent(type, p);
+        if (isMobileLayout()) document.body.classList.remove('palette-open');
       }
       ghostPreview = null;
       el.dragGhost.style.display = 'none';
@@ -4629,6 +6075,12 @@ function placeComponent(type, p, size) {
     const b = makeAnchorAt(p, hit);
     const c = addConstraint(connector.ctype, a, b);
     if (c) {
+      if (pendingPulley && connector.ctype === 'rope') {
+        const pp = pendingPulley.pos;
+        const pa = anchorPos(a), pb2 = anchorPos(b);
+        if (pa && pb2) c.rest = Math.hypot(pa.x - pp.x, pa.y - pp.y) + Math.hypot(pb2.x - pp.x, pb2.y - pp.y);
+        c.pulley = pendingPulley;
+      }
       selection = { kind: 'constraint', item: c };
       toast('连接完成 · 可在右侧调节参数', true);
     } else {
@@ -4827,6 +6279,7 @@ function inspectorBodyHTML(b) {
     <div class="icon-box">${iconFor(b.type)}</div>
     <div><h3>${b.name}</h3><p>${d.note || b.type}</p></div>
   </div>
+  <p class="component-desc">${componentDescription(b.type)}</p>
   <div style="margin-bottom:9px">
     <span class="tag ${b.static ? 'accent' : ''}">${b.static ? '已固定' : '动态刚体'}</span>
     <span class="tag">${b.material}</span>
@@ -4875,6 +6328,10 @@ function inspectorBodyHTML(b) {
     } else if (e.kind === 'resistor') {
       html += sliderRow('电阻 R', 'R', e.R, 1, 120, 1, ' Ω', 'body', 0);
       html += `<div class="kv-row"><span>两端电压</span><b id="liveVoltage">${fmt(b.circuitState.voltage, 2)} V</b></div>`;
+    } else if (e.kind === 'rheostat') {
+      html += sliderRow('滑片位置', 'rheostatPos', (b.rheostatPos == null ? .5 : b.rheostatPos) * 100, 0, 100, 1, ' %', 'body', 0);
+      html += `<div class="kv-row"><span>当前电阻</span><b>${fmt(e.R, 2)} Ω</b></div>`;
+      html += `<div class="kv-row"><span>两端电压</span><b id="liveVoltage">${fmt(b.circuitState.voltage, 2)} V</b></div>`;
     } else if (e.kind === 'bulb') {
       html += `<div class="kv-row"><span>额定功率</span><b>${fmt(e.rated, 2)} W</b></div>`;
       html += `<div class="kv-row"><span>实际功率</span><b id="livePower">${fmt(e.power, 2)} W</b></div>`;
@@ -4895,6 +6352,12 @@ function inspectorBodyHTML(b) {
       html += sliderRow('吸引半径', 'coilRadius', b.coil.radius, 60, 520, 10, ' px');
       html += sliderRow('磁力系数', 'coilPower', b.coil.power, .2, 3, .1, '');
       html += `<p class="tiny-note">电磁铁通电后吸引铁球；电流越大、距离越近，吸力越强。</p>`;
+    } else if (e.kind === 'induction') {
+      html += sliderRow('线圈匝数 N', 'turns', b.induction.turns, 20, 800, 10, ' 匝');
+      html += sliderRow('线圈面积 A', 'coilArea', b.induction.area * 100, .2, 8, .1, ' ×10⁻²m²');
+      html += `<div class="kv-row"><span>磁通变化</span><b id="liveFlux">${fmt(b.induction.B, 3)} T</b></div>`;
+      html += `<div class="kv-row"><span>感应电动势</span><b id="liveEmf">${fmt(b.induction.emf, 2)} V</b></div>`;
+      html += `<p class="tiny-note">法拉第定律 ε = −N·ΔΦ/Δt；把磁铁靠近/远离线圈即可产生电压。</p>`;
     }
     html += `<p class="tiny-note">把铜线拖到两个金属接线柱之间即可接入回路。双击开关可快速通断。</p></div>`;
   } else if (b.coil) {
@@ -4980,6 +6443,47 @@ function inspectorBodyHTML(b) {
       <div class="kv-row"><span>隧穿模型</span><b>T ∝ e^(−κa)</b></div>
       <p class="tiny-note">量子粒子以波包形式扩散，碰到静态势垒时有概率直接穿过。</p>
     </div>`;
+  } else if (b.optic) {
+    const k = b.optic.kind;
+    html += `<div class="prop-section"><h4>光学参数</h4>`;
+    if (k === 'lens') html += sliderRow('焦距 f', 'focal', b.optic.focal, 40, 420, 5, ' px');
+    if (k === 'mirror') html += sliderRow('反射率', 'reflectivity', b.optic.reflectivity, .2, 1, .01, '');
+    if (k === 'prism') html += sliderRow('色散强度', 'dispersion', b.optic.dispersion, 0, 3, .1, '');
+    html += `<div class="kv-row"><span>光线类型</span><b>${k === 'laser' ? '单色激光' : k === 'mirror' ? '镜面反射' : k === 'lens' ? '折射成像' : k === 'prism' ? '色散' : '光屏'}</b></div>`;
+    html += `<p class="tiny-note">光线追迹实时计算；旋转激光器/镜面可改变光路。</p></div>`;
+  } else if (b.thermal) {
+    html += `<div class="prop-section"><h4>热学参数</h4>
+      <div class="kv-row"><span>当前温度</span><b id="liveTemp">${fmt(b.temperature, 1)} K</b></div>`;
+    if (b.thermal.kind === 'heater' || b.thermal.kind === 'cooler') {
+      html += sliderRow('设定温度', 'thermalTemp', b.thermal.temp, 120, 650, 5, ' K');
+      html += sliderRow('功率', 'thermalPower', b.thermal.power, 20, 500, 10, ' W');
+    }
+    if (b.thermal.kind === 'conductor' || b.thermal.kind === 'insulator') {
+      html += sliderRow('导热系数 k', 'thermalK', b.thermal.k, .01, 8, .01, '');
+    }
+    html += `<p class="tiny-note">热源/制冷片改变周围物体温度；导热棒在接触物体间传递热量，绝热板导热极低。</p></div>`;
+  } else if (b.magtool) {
+    html += `<div class="prop-section"><h4>磁场读数</h4>
+      <div class="kv-row"><span>磁感应强度</span><b id="liveB">${fmt(b.magtool.B, 3)} T</b></div>`;
+    if (b.magtool.kind === 'hall') {
+      html += `<div class="kv-row"><span>霍尔电压</span><b id="liveHall">${fmt(b.magtool.V, 3)} V</b></div>`;
+      html += sliderRow('控制电流', 'hallCurrent', b.magtool.current, .001, .1, .001, ' A');
+    }
+    html += `<p class="tiny-note">把磁铁、电磁铁或磁场区靠近读数元件，数值会实时变化。</p></div>`;
+  } else if (b.shield) {
+    html += `<div class="prop-section"><h4>屏蔽参数</h4>
+      ${sliderRow('透磁率', 'shieldAtten', b.shield.attenuation, .01, .9, .01, '')}
+      <p class="tiny-note">罩内磁场乘以透磁率；0.08 表示屏蔽掉约 92% 的磁场。</p></div>`;
+  } else if (b.atomic) {
+    const k = b.atomic.kind;
+    html += `<div class="prop-section"><h4>原子物理参数</h4>
+      <div class="kv-row"><span>类型</span><b>${k === 'nucleus' ? '带正电原子核' : k === 'electron' ? '电子' : k === 'alphaSource' ? 'α 放射源' : k === 'cloud' ? '云室' : '光电板'}</b></div>`;
+    if (k === 'alphaSource') {
+      html += sliderRow('发射间隔', 'alphaInterval', b.atomic.interval, .3, 4, .1, ' s');
+      html += sliderRow('出射速度', 'alphaSpeed', b.atomic.speed, 60, 360, 10, ' px/s');
+    }
+    if (k === 'photo') html += `<div class="kv-row"><span>累计光子</span><b>${b.atomic.hits} 个</b></div>`;
+    html += `<p class="tiny-note">α 粒子在磁场中偏转、被原子核散射；光电板被光照后发射电子，云室记录径迹。</p></div>`;
   }
   html += `<p class="tiny-note" style="border-top:1px solid var(--line);padding-top:8px">质量由二维面积 × 等效密度计算；静态物体质量视为无穷大。</p>`;
   return html;
@@ -5076,6 +6580,7 @@ function onInspectorInput(e) {
     else if (prop === 'gravityScale') b.gravityScale = v;
     else if (prop === 'voltage' && b.electrical) b.electrical.voltage = v;
     else if (prop === 'R' && b.electrical) b.electrical.R = v;
+    else if (prop === 'rheostatPos' && b.electrical) { b.rheostatPos = clamp(v / 100, 0, 1); b.electrical.R = .5 + b.rheostatPos * 19.5; circuitDirtyAndSolve?.(FIXED_DT); }
     else if (prop === 'C' && b.electrical) b.electrical.C = v / 1000;
     else if (prop === 'fanPower' && b.fan) b.fan.power = v;
     else if (prop === 'fanRange' && b.fan) b.fan.range = v;
@@ -5091,6 +6596,18 @@ function onInspectorInput(e) {
     else if (prop === 'slitSeparation' && b.slit) b.slit.separation = v;
     else if (prop === 'emitInterval' && b.emitter) b.emitter.interval = Math.max(.2, v);
     else if (prop === 'emitSpeed' && b.emitter) b.emitter.speed = v;
+    else if (prop === 'focal' && b.optic) b.optic.focal = v;
+    else if (prop === 'reflectivity' && b.optic) b.optic.reflectivity = v;
+    else if (prop === 'dispersion' && b.optic) b.optic.dispersion = v;
+    else if (prop === 'thermalTemp' && b.thermal) b.thermal.temp = v;
+    else if (prop === 'thermalPower' && b.thermal) b.thermal.power = v;
+    else if (prop === 'thermalK' && b.thermal) b.thermal.k = v;
+    else if (prop === 'hallCurrent' && b.magtool) b.magtool.current = v;
+    else if (prop === 'shieldAtten' && b.shield) b.shield.attenuation = v;
+    else if (prop === 'turns' && b.induction) b.induction.turns = v;
+    else if (prop === 'coilArea' && b.induction) b.induction.area = v / 100;
+    else if (prop === 'alphaInterval' && b.atomic) b.atomic.interval = Math.max(.2, v);
+    else if (prop === 'alphaSpeed' && b.atomic) b.atomic.speed = v;
   } else if (target === 'constraint' && selection && selection.kind === 'constraint') {
     const c = selection.item;
     if (prop === 'rest') c.rest = v;
@@ -5209,9 +6726,14 @@ function cloneBody(b, dx, dy) {
     density: b.density, friction: b.friction, restitution: b.restitution,
     dragCd: b.dragCd, dragMul: b.dragMul, tunnelWidth: b.tunnelWidth,
     conveyor: b.conveyor, coil: b.coil, emitter: b.emitter, qubit: b.qubit,
-    slit: b.slit, balloon: b.balloon, anchor: b.anchor, isGround: b.isGround
+    slit: b.slit, balloon: b.balloon, anchor: b.anchor, isGround: b.isGround,
+    pivot: b.pivot, rheostatPos: b.rheostatPos, temperature: b.temperature
   };
   const nb = new Body(o);
+  for (const key of ['optic', 'thermal', 'magtool', 'shield', 'induction', 'atomic', 'mech', 'magdevice']) {
+    if (b[key]) nb[key] = JSON.parse(JSON.stringify(b[key]));
+  }
+  nb.pivot = b.pivot;
   if (b.electrical) nb.electrical = JSON.parse(JSON.stringify(b.electrical));
   if (b.pins) nb.pins = b.pins.map(p => ({ x: p.x, y: p.y, label: p.label }));
   if (b.fan) nb.fan = { power: b.fan.power, range: b.fan.range };
@@ -5280,6 +6802,15 @@ function updateInspectorLive() {
       set('livePower', fmt(b.electrical.power || 0, 2) + ' W');
       set('liveCharge', fmt(b.electrical.charge || 0, 3) + ' C');
     }
+    set('liveTemp', fmt(b.temperature, 1) + ' K');
+    if (b.magtool) {
+      set('liveB', fmt(b.magtool.B, 3) + ' T');
+      set('liveHall', fmt(b.magtool.V, 3) + ' V');
+    }
+    if (b.induction) {
+      set('liveFlux', fmt(b.induction.B, 3) + ' T');
+      set('liveEmf', fmt(b.induction.emf, 2) + ' V');
+    }
   } else if (selection.kind === 'constraint') {
     const c = selection.item;
     const set = (id, val) => { const n = document.getElementById(id); if (n) n.textContent = val; };
@@ -5326,6 +6857,11 @@ function constraintAt(p) {
     const c = constraints[i];
     const a = anchorPos(c.a), b = anchorPos(c.b);
     if (!a || !b) continue;
+    if (c.pulley && bodies.includes(c.pulley)) {
+      const pp = c.pulley.pos;
+      if (distanceToSegment(p, a, pp) < 11 || distanceToSegment(p, pp, b) < 11) return c;
+      continue;
+    }
     if (distanceToSegment(p, a, b) < 11) return c;
   }
   return null;
@@ -5450,7 +6986,139 @@ function endBodyDrag() {
   if (sp > 40) sound('release', Math.min(1, sp / 900));
 }
 
+function clearLongPress() {
+  if (longPress && longPress.timer) clearTimeout(longPress.timer);
+  longPress = null;
+}
+
+// 双指按下时撤掉单指拖拽，避免缩放画布时把物体甩出去。
+function abortBodyDrag() {
+  if (!dragState) return;
+  const list = dragState.group || [];
+  for (const ent of list) {
+    const b = ent.body;
+    if (!b) continue;
+    if (Number.isFinite(ent.sx)) b.pos.x = ent.sx;
+    if (Number.isFinite(ent.sy)) b.pos.y = ent.sy;
+    if (Number.isFinite(ent.angle)) b.angle = ent.angle;
+    b.isDragged = false;
+    b.computeMass();
+    b.cacheGeometry();
+  }
+  dragState = null;
+  el.stageShell.classList.remove('is-grabbing');
+  refreshInspector();
+}
+
+function contextTargetAt(p) {
+  const b = bodyAt(p);
+  if (b && !b.field) return { kind: 'body', body: b };
+  const w = wireAt(p);
+  if (w) return { kind: 'wire', item: w };
+  const c = constraintAt(p);
+  if (c) return { kind: 'constraint', item: c };
+  const pair = pairAt(p);
+  if (pair) return { kind: 'pair', item: pair };
+  if (b) return { kind: 'body', body: b };
+  return null;
+}
+
+function openContextAt(clientX, clientY) {
+  const p = clientToWorld({ clientX, clientY });
+  const hit = contextTargetAt(p);
+  if (!hit) return false;
+  const ev = { clientX, clientY };
+  if (hit.kind === 'body') openContextMenu(ev, hit.body);
+  else openLinkContextMenu(ev, hit);
+  return true;
+}
+
+function startLongPress(e) {
+  clearLongPress();
+  const sx = e.clientX, sy = e.clientY;
+  const item = {
+    x: sx, y: sy, pointerId: e.pointerId, fired: false, timer: 0
+  };
+  const delay = pendingType ? 800 : 520;
+  item.timer = setTimeout(() => {
+    if (!longPress || longPress !== item || touchPoints.size !== 1) return;
+    if (linkDrag && linkDrag.moved) return;
+    item.fired = true;
+    if (navigator.vibrate) { try { navigator.vibrate(12); } catch (_) {} }
+    abortBodyDrag();
+    marquee = null;
+    placeDrag = null;
+    ghostPreview = null;
+    closeContextMenu();
+    if (pendingType) {
+      cancelPending();
+      toast('已取消连线/放置状态', true);
+      el.stageShell.classList.remove('is-placing', 'is-wiring', 'is-connecting');
+      render();
+      return;
+    }
+    if (openContextAt(sx, sy)) {
+      el.stageShell.classList.remove('is-placing', 'is-wiring', 'is-connecting');
+      render();
+    }
+  }, delay);
+  longPress = item;
+}
+
+function beginPinch() {
+  if (touchPoints.size < 2) return;
+  const pts = Array.from(touchPoints.values());
+  const a = pts[0], b = pts[1];
+  const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+  const d = Math.max(1, Math.hypot(a.x - b.x, a.y - b.y));
+  const r = canvas.getBoundingClientRect();
+  pinchState = {
+    startDist: d,
+    startZoom: camera.zoom,
+    world: {
+      x: (mid.x - r.left) / camera.zoom + camera.x,
+      y: (mid.y - r.top) / camera.zoom + camera.y
+    }
+  };
+  abortBodyDrag();
+  marquee = null;
+  placeDrag = null;
+  ghostPreview = null;
+  el.stageShell.classList.add('is-panning');
+}
+
+function updatePinch() {
+  if (!pinchState || touchPoints.size < 2) return;
+  const pts = Array.from(touchPoints.values());
+  const a = pts[0], b = pts[1];
+  const mid = { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+  const d = Math.max(1, Math.hypot(a.x - b.x, a.y - b.y));
+  const z = clamp(pinchState.startZoom * (d / pinchState.startDist), 0.35, 3);
+  const r = canvas.getBoundingClientRect();
+  camera.zoom = z;
+  camera.x = pinchState.world.x - (mid.x - r.left) / z;
+  camera.y = pinchState.world.y - (mid.y - r.top) / z;
+  clampCamera();
+  updateZoomChip();
+}
+
+function endPinchIfNeeded() {
+  if (pinchState && touchPoints.size < 2) {
+    pinchState = null;
+    el.stageShell.classList.remove('is-panning');
+  }
+}
+
 function onCanvasPointerDown(e) {
+  if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+    touchPoints.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (touchPoints.size >= 2) {
+      clearLongPress();
+      beginPinch();
+      return;
+    }
+    startLongPress(e);
+  }
   if (e.button === 1) {
     e.preventDefault();
     panState = { sx: e.clientX, sy: e.clientY, cx: camera.x, cy: camera.y, pointerId: e.pointerId };
@@ -5475,7 +7143,12 @@ function onCanvasPointerDown(e) {
       ghostPreview = { type: pendingType, x: p.x, y: p.y, w: 0, h: 0, sizeDrag: true };
       return;
     }
-    placeComponent(pendingType, p);
+    const hadStart = !!(connector || wireStart);
+    if (!hadStart) placeComponent(pendingType, p);
+    if (pendingType && (connector || wireStart)) {
+      linkDrag = { type: pendingType, start: { x: p.x, y: p.y }, moved: false, hadStart };
+      if (hadStart) showHint('松开完成连线 · 长按或右键取消', 1800);
+    }
     return;
   }
 
@@ -5487,12 +7160,14 @@ function onCanvasPointerDown(e) {
     el.stageShell.classList.add('is-wiring');
     updatePaletteUI();
     placeComponent('wire', p);
+    if (wireStart) linkDrag = { type: 'wire', start: { x: p.x, y: p.y }, moved: false };
     return;
   }
   if (pin && (e.shiftKey || wireMode)) {
     wireStart = { body: pin.body, pin: pin.pin };
+    linkDrag = { type: 'wire', start: { x: p.x, y: p.y }, moved: false };
     selection = { kind: 'wire', item: null };
-    showHint('已选接线柱 · 点击另一个接线柱完成铜线', 3000);
+    showHint('已选接线柱 · 再点另一个，或直接拖到另一个接线柱完成铜线', 3000);
     return;
   }
 
@@ -5541,6 +7216,12 @@ function onCanvasPointerDown(e) {
 }
 
 function onCanvasPointerMove(e) {
+  if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+    if (touchPoints.has(e.pointerId)) touchPoints.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pinchState) { updatePinch(); return; }
+    if (longPress && longPress.pointerId === e.pointerId &&
+      Math.hypot(e.clientX - longPress.x, e.clientY - longPress.y) > 9) clearLongPress();
+  }
   if (panState) {
     camera.x = panState.cx - (e.clientX - panState.sx) / camera.zoom;
     camera.y = panState.cy - (e.clientY - panState.sy) / camera.zoom;
@@ -5549,6 +7230,10 @@ function onCanvasPointerMove(e) {
   }
   const p = clientToWorld(e);
   pointerWorld = p;
+  if (linkDrag) {
+    if (Math.hypot(p.x - linkDrag.start.x, p.y - linkDrag.start.y) > 8) linkDrag.moved = true;
+    return;
+  }
   if (placeDrag) {
     placeDrag.current = { x: p.x, y: p.y };
     const w = Math.abs(p.x - placeDrag.start.x);
@@ -5611,9 +7296,37 @@ function onCanvasPointerMove(e) {
 }
 
 function onCanvasPointerUp(e) {
+  if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+    const wasPinch = !!pinchState;
+    touchPoints.delete(e.pointerId);
+    if (wasPinch) {
+      endPinchIfNeeded();
+      if (canvas.hasPointerCapture?.(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
+      return;
+    }
+    if (longPress && longPress.pointerId === e.pointerId) {
+      const fired = longPress.fired;
+      clearLongPress();
+      if (fired) {
+        if (canvas.hasPointerCapture?.(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
+        return;
+      }
+    }
+  }
   if (panState) {
     panState = null;
     el.stageShell.classList.remove('is-panning');
+    if (canvas.hasPointerCapture?.(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
+    return;
+  }
+  if (linkDrag) {
+    const ld = linkDrag;
+    linkDrag = null;
+    if (ld.moved || ld.hadStart) {
+      const p = clientToWorld(e);
+      if (p.x >= 0 && p.y >= 0 && p.x <= W && p.y <= H) placeComponent(ld.type, p);
+      else cancelLinkState();
+    }
     if (canvas.hasPointerCapture?.(e.pointerId)) canvas.releasePointerCapture(e.pointerId);
     return;
   }
@@ -5726,11 +7439,18 @@ function openContextMenu(e, b) {
   if (b.electrical) {
     if (b.electrical.kind === 'battery') add('电压', 'voltage', 0, 24, 0.1, b.electrical.voltage);
     if (b.electrical.kind === 'resistor' || b.electrical.kind === 'bulb' || b.electrical.kind === 'coil' || b.electrical.kind === 'led') add('电阻', 'resistance', 0.2, 200, 0.2, b.electrical.R);
+    if (b.electrical.kind === 'rheostat') add('滑片 %', 'rheostatPos', 0, 100, 1, Math.round((b.rheostatPos == null ? .5 : b.rheostatPos) * 100));
     if (b.electrical.kind === 'capacitor') add('电容', 'capacitance', 0.001, 2, 0.001, b.electrical.C);
   }
   if (b.charge) add('电荷 q', 'charge', -10, 10, 0.1, b.charge);
   if (b.emitter) add('发射间隔', 'emitInterval', 0.2, 6, 0.1, b.emitter.interval);
+  if (b.thermal && b.thermal.kind !== 'thermo') add('温度', 'thermalTemp', 120, 650, 5, Math.round(b.temperature == null ? 293 : b.temperature), 'K');
+  if (b.optic && b.optic.kind === 'lens') add('焦距', 'focal', 40, 420, 5, b.optic.focal);
+  if (b.optic && b.optic.kind === 'mirror') add('反射率', 'reflectivity', 0, 1, 0.01, b.optic.reflectivity);
+  if (b.induction) add('匝数', 'turns', 10, 1200, 10, b.induction.turns);
+  if (b.atomic && b.atomic.kind === 'alphaSource') add('α 间隔', 'alphaInterval', 0.2, 5, 0.1, b.atomic.interval);
   const actions = [];
+  if (b.mech && b.mech.kind === 'pulley') actions.push(`<button data-cact="thread">${pendingPulley === b ? '取消穿绳' : '开始穿绳'}</button>`);
   actions.push(`<button data-cact="static">${b.static ? '解除固定' : '固定'}</button>`);
   actions.push(`<button data-cact="clone">克隆</button>`);
   if (b.electrical && b.electrical.kind === 'switch') actions.push(`<button data-cact="switch">${b.electrical.closed ? '断开' : '闭合'}</button>`);
@@ -5740,6 +7460,7 @@ function openContextMenu(e, b) {
 
   m.innerHTML = `
     <div class="ctx-head"><b>${b.name}</b><span>${b.static ? '固定' : '动态'} · ${b.mass === Infinity ? '∞' : b.mass.toFixed(2)} kg</span></div>
+    <p class="ctx-desc">${componentDescription(b.type)}</p>
     ${rows.join('')}
     <div class="ctx-actions">${actions.join('')}</div>
     <p class="ctx-tip">改数值立即生效；拖拽松手会保留惯性。</p>`;
@@ -5766,9 +7487,15 @@ function openContextMenu(e, b) {
     else if (prop === 'conveyorSpeed') b.conveyor.speed = clamp(v, -300, 300);
     else if (prop === 'voltage') { b.electrical.voltage = clamp(v, 0, 24); circuitDirtyAndSolve?.(FIXED_DT); }
     else if (prop === 'resistance') b.electrical.R = clamp(v, .2, 200);
+    else if (prop === 'rheostatPos') { b.rheostatPos = clamp(v / 100, 0, 1); b.electrical.R = .5 + b.rheostatPos * 19.5; circuitDirtyAndSolve?.(FIXED_DT); }
     else if (prop === 'capacitance') b.electrical.C = clamp(v, .001, 2);
     else if (prop === 'charge') b.charge = clamp(v, -10, 10);
     else if (prop === 'emitInterval') b.emitter.interval = clamp(v, .2, 6);
+    else if (prop === 'thermalTemp') { b.temperature = clamp(v, 120, 650); if (b.thermal) b.thermal.temp = b.temperature; }
+    else if (prop === 'focal') b.optic.focal = clamp(v, 40, 420);
+    else if (prop === 'reflectivity') b.optic.reflectivity = clamp(v, 0, 1);
+    else if (prop === 'turns') b.induction.turns = clamp(v, 10, 1200);
+    else if (prop === 'alphaInterval') b.atomic.interval = clamp(v, .2, 5);
     b.computeMass(); b.cacheGeometry();
     m.querySelectorAll(`[data-prop="${prop}"]`).forEach(n => { if (n !== inp) n.value = inp.value; });
     refreshInspector();
@@ -5779,6 +7506,7 @@ function openContextMenu(e, b) {
   m.querySelectorAll('[data-cact]').forEach(btn => {
     btn.addEventListener('click', () => {
       const a = btn.dataset.cact;
+      if (a === 'thread') { startPulleyThread(b); return; }
       if (a === 'static') toggleStatic(b);
       else if (a === 'clone') { const c = cloneBody(b, 26, 26); if (c) { selection = { kind: 'body', body: c }; } }
       else if (a === 'switch') { b.electrical.closed = !b.electrical.closed; circuitDirtyAndSolve?.(FIXED_DT); }
@@ -6095,10 +7823,13 @@ function fixedStep(dt) {
       b.accel.x = (b.vel.x - b._pvx) / h;
       b.accel.y = (b.vel.y - b._pvy) / h;
     }
+    magneticStep(h);
     solveCircuit(h);
   }
   electronPhase += dt * (2.2 + Math.min(8, Math.abs(windSpeed) * .4));
   updateEmitters(dt);
+  thermalStep(dt);
+  atomicStep(dt);
   simTime += dt;
 }
 
@@ -6121,6 +7852,14 @@ function loop(now) {
   }
   updateEffects(real);
   updateCamera(real);
+  if (isMobileLayout() && !userTouchedScene && (++mobileFitTick % 30 === 0)) {
+    const host = document.getElementById('stageScroll') || canvas.parentElement;
+    if (host && (Math.abs(host.clientWidth - viewW) > 2 || Math.abs(host.clientHeight - viewH) > 2)) {
+      resizeCanvas();
+      fitView();
+      render();
+    }
+  }
   render();
 
   if (now - lastStatsUpdate > 240) {
@@ -6140,6 +7879,7 @@ function bindEvents() {
   canvas.addEventListener('dblclick', onCanvasDoubleClick);
   canvas.addEventListener('contextmenu', (e) => {
     e.preventDefault();
+    if (cancelLinkState()) return;
     const p = clientToWorld(e);
     const b = bodyAt(p);
     if (b && !b.field) { openContextMenu(e, b); return; }
@@ -6223,6 +7963,20 @@ function bindEvents() {
   });
 }
 
+function scheduleViewportReflow() {
+  clearTimeout(window.__reflowTimer);
+  window.__reflowTimer = setTimeout(() => {
+    resizeCanvas();
+    if (isMobileLayout() && !userTouchedScene && bodies.length &&
+      (Math.abs(W - sceneBuiltW) > 60 || Math.abs(H - sceneBuiltH) > 60)) {
+      resetScene();
+    } else {
+      if (isMobileLayout() && !userTouchedScene) fitView();
+      render();
+    }
+  }, 120);
+}
+
 function init() {
   resizeCanvas();
   renderEnvStrip();
@@ -6230,6 +7984,8 @@ function init() {
   updateEnvUI();
   resetScene();
   bindEvents();
+  window.addEventListener('resize', scheduleViewportReflow);
+  window.addEventListener('orientationchange', scheduleViewportReflow);
   lastFrame = performance.now();
   lastStatsUpdate = 0;
   // 先同步画一帧：即使标签页在后台、rAF 被浏览器节流，启动时也不会是空白画布。
@@ -6264,9 +8020,17 @@ function init() {
     if (!userTouchedScene && bodies.length && (Math.abs(W - sceneBuiltW) > 60 || Math.abs(H - sceneBuiltH) > 60)) {
       resetScene();
     } else render();
+    // 移动端首屏再校正一次：等地址栏/视口尺寸稳定后重新框住场景。
+    if (isMobileLayout() && !userTouchedScene) {
+      resizeCanvas();
+      fitView();
+      render();
+    }
   }, 180);
   requestAnimationFrame(loop);
   updateEnvUI();
+  const dbgBtn = document.querySelector('[data-act="debug"]');
+  if (dbgBtn) dbgBtn.classList.toggle('active', showDebug);
   window.__sceneReady = true;
 }
 
